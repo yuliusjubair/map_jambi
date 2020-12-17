@@ -113,6 +113,18 @@
             ]
           }).addTo(mymap);
            
+           var route5 = L.Routing.control({
+            createMarker: function(i, wp) {
+                return L.marker(wp.latLng).on('click', function(e) { 
+                  open_video2();
+                 }).bindPopup('Nama Jalan : Jl. RA KARTINI - MUARA BUNGO Jl. H. Somad, Candika, Ora <br /> Nomor : 41<br /> PIC : Julian<br /> keterangan :');
+            },
+            waypoints: [
+              L.latLng(-1.5897244232754617, 103.61507785928177),
+              L.latLng(-1.5901169963944035, 103.61530700597568)
+            ]
+          }).addTo(mymap);
+            
 
 function open_video1(){
   $('.video').show();
