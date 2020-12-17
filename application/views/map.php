@@ -5,6 +5,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-routing-machine/3.0.3/leaflet-routing-machine.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-routing-machine/3.0.3/leaflet-routing-machine.css" />
 <div class="row">
+   <div class="col-md-8">
+        <div class="card">
+            <div class="mapcanvas" id="map2" style="height: 650px">
+                <div id="popup"></div>
+            </div>   
+        </div>
+    </div>
     <div class="col-md-4 shadow" style="padding:5px; border-radius:5px;">
 
         <div class="card mb-2" style="margin-top:10px;">
@@ -31,13 +38,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-8">
-        <div class="card">
-            <div class="mapcanvas" id="map2">
-                <div id="popup"></div>
-            </div>   
-        </div>
-    </div>
+   
 </div>
 
 <script type="text/javascript">
@@ -62,7 +63,7 @@
             createMarker: function(i, wp) {
                 return L.marker(wp.latLng).on('click', function(e) { 
                   open_video1();
-                 }).bindPopup('Nama Jalan : <br /> Nomor : <br /> PIC :');
+                 }).bindPopup('Nama Jalan : JL. KH Wahid Hasyim, 26, Jambi <br /> Nomor : <br /> PIC :<br /> keterangan :');
             },
             waypoints: [
               L.latLng(-1.5901393059041389, 103.613788273547),
@@ -79,7 +80,7 @@
             createMarker: function(i, wp) {
                 return L.marker(wp.latLng).on('click', function(e) { 
                   open_video2();
-                 }).bindPopup('Nama Jalan : <br /> Nomor : <br /> PIC :');
+                 }).bindPopup('Nama Jalan : Orang Kayo Hitam Kec. Ps. Jambi <br /> Nomor : <br /> PIC :<br /> keterangan :');
             },
              waypoints: [
               L.latLng(-1.5910250526576806, 103.61329557823376),
@@ -92,13 +93,26 @@
             createMarker: function(i, wp) {
                 return L.marker(wp.latLng).on('click', function(e) { 
                   open_video1();
-                 }).bindPopup('Nama Jalan : <br /> Nomor : <br /> PIC :');
+                 }).bindPopup('Nama Jalan : Jl. Sultan Thaha, Beringin, Kec. Ps. Jambi, Kota Jambi, Jambi 36123 <br /> Nomor : <br /> PIC : Julian  <br /> keterangan :');
             },
             waypoints: [
               L.latLng(-1.5912915363003146, 103.6138598267069),
               L.latLng(-1.5920577243101925, 103.61424391731649)
             ]
           }).addTo(mymap);
+
+            var route4 = L.Routing.control({
+            createMarker: function(i, wp) {
+                return L.marker(wp.latLng).on('click', function(e) { 
+                  open_video2();
+                 }).bindPopup('Nama Jalan : Kantor Cabang Penerbit Erlangga - MUARA BUNGO Jl. H. Somad, Candika, Ora <br /> Nomor : 41<br /> PIC : Julian<br /> keterangan :');
+            },
+            waypoints: [
+              L.latLng(-1.5907116173214686, 103.61423521543114),
+              L.latLng(-1.5910160680912355, 103.61445493959867)
+            ]
+          }).addTo(mymap);
+           
 
 function open_video1(){
   $('.video').show();
