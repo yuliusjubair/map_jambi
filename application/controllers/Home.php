@@ -13,7 +13,7 @@ class Home extends CI_Controller
     {
     	$get_data = $this->map_model->get_data();
         $data=array(
-        	'content'=>'map',
+        	'content'=>'show_draw',
         	'row' => $get_data
         );
         $this->load->view('template',$data);
