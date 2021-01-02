@@ -47,6 +47,13 @@
                         <span class="help-block"></span>
                     </div>
                 </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-6">Link Video</label>
+                    <div class="col-sm-12">
+                        <input id="link_video" name="link_video" placeholder="Link Video" class="form-control" type="text" value="<?php echo $row->link_video?>">
+                        <span class="help-block"></span>
+                    </div>
+                </div>
                <div class="modal-footer">
                   <button type="submit" class="btn btn-md btn-primary" id="btnSave" >Save Changes</button>
                   <button type="button" class="btn btn-md btn-danger" data-dismiss="modal" onclick="kembali()">Back Dashboard</button>

@@ -94,13 +94,14 @@ class Home extends CI_Controller
     	$keterangan = $this->input->post('keterangan');
     	$wp1 = $this->input->post('waypoint1');
     	$wp2 = $this->input->post('waypoint2');
-
+        $link_video = $this->input->post('link_video');
     	$data = array(
     		"nama_lokasi" => $nama_lokasi,
     		"alamat" => $alamat,
     		"keterangan" => $keterangan,
     		"waypoint1" => $wp1,
     		"waypoint2" => $wp2,
+            "link_video" => $link_video
     	);
     	$where = array("id_lokasi"=>$id);
     	$this->db->update("lokasi_waypoint", $data, $where);
