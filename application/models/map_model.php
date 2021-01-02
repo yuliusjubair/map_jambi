@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script allowed');
 
-class Map_model extends CI_Model {
+class map_model extends CI_Model {
     var $tabel = 'lokasi_waypoint';
 
 
