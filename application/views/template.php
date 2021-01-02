@@ -59,6 +59,8 @@
                 <button class="btn btn-primary" type="button">
                   <i class="fas fa-search fa-sm"></i>
                 </button>
+                &nbsp;
+                <button type="button" class="btn btn-md btn-danger" data-dismiss="modal" onclick="add_location()">Add Location</button>
               </div>
             </div>
           </form>
@@ -256,7 +258,13 @@
   <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.3.0/build/ol.js"></script>
   <script src="<?=base_url('assets/js/gisapp.js')?>"></script>
   
+  
 
 </body>
 
 </html>
+<script type="text/javascript">
+  function add_location(){
+      window.location.href="<?php echo base_url()?>home/add_location/";
+    }
+</script>

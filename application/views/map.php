@@ -40,14 +40,14 @@
     </div>
    
 </div>
-
+<script src="<?=base_url('assets/js/view_map.js')?>"></script>
 <script type="text/javascript">
     $(document).ready(function() {
         $('.leaflet-control').hide();
         $('.video').hide();
         $('.video2').hide();
     })
-        var mymap = L.map('map2', { zoomControl: false , attributionControl: false}).setView([-1.5901393059041389, 103.613788273547], 16);
+        /*var mymap = L.map('map2', { zoomControl: false , attributionControl: false}).setView([-1.5901393059041389, 103.613788273547], 16);
 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
           attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -72,11 +72,7 @@
           }).addTo(mymap);
 
           var route2 = L.Routing.control({
-            /*createMarker: function(waypointIndex, waypoint, numberOfWaypoints) {
-                return L.marker(waypoint.latLng)
-                    .bindPopup('Hello');
-            },*/
-            // createMarker: function() { return null; },
+            
             createMarker: function(i, wp) {
                 return L.marker(wp.latLng).on('click', function(e) { 
                   open_video2();
@@ -123,7 +119,7 @@
               L.latLng(-1.5897244232754617, 103.61507785928177),
               L.latLng(-1.5901169963944035, 103.61530700597568)
             ]
-          }).addTo(mymap);
+          }).addTo(mymap);*/
             
 
 function open_video1(){
