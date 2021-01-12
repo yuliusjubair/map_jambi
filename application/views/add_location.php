@@ -195,9 +195,7 @@
             delete this.polylineLatlng;
         }
 
-        function kembali(){
-            window.location.href="<?php echo base_url()?>home/show_draw/";
-        }
+        
     </script>
 </body>
 </html>

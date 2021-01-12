@@ -52,15 +52,22 @@
           </button>
 
           <!-- Topbar Search -->
-          <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+          <form class="col-6 d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
             <div class="input-group">
-              <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+             <!--  <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2"> -->
+
               <div class="input-group-append">
-                <button class="btn btn-primary" type="button">
-                  <i class="fas fa-search fa-sm"></i>
+                <button class="btn btn-default" type="button">
+                  Map Gis v 1.0
                 </button>
                 &nbsp;
                 <button type="button" class="btn btn-md btn-danger" data-dismiss="modal" onclick="add_location()">Add Location</button>
+                &nbsp;
+                <button type="button" class="btn btn-md btn-danger" data-dismiss="modal" onclick="view_table()">View Ruas Jalan</button>
+                &nbsp;
+                <button type="button" class="btn btn-md btn-danger" data-dismiss="modal" onclick="view_jembatan()">View Jembatan</button>
+                &nbsp;
+                <button type="button" class="btn btn-md btn-danger" data-dismiss="modal" onclick="view_map()">View Map</button>
               </div>
             </div>
           </form>
@@ -265,6 +272,18 @@
 </html>
 <script type="text/javascript">
   function add_location(){
-      window.location.href="<?php echo base_url()?>home/add_location/";
+      window.location.href="<?php echo base_url()?>home/draw/";
+  }
+  function kembali(){
+      window.location.href="<?php echo base_url()?>home/show_draw/";
+  }
+  function view_table(){
+      window.location.href="<?php echo base_url()?>home/show_table/";
     }
+  function view_jembatan(){
+      window.location.href="<?php echo base_url()?>home/show_jembatan/";
+    }  
+  function view_map(){
+      window.location.href="<?php echo base_url()?>home/index/";
+    }  
 </script>
