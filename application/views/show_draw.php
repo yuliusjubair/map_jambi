@@ -124,12 +124,13 @@
              var extractedLTLNG2 = extractedLTLNG.map(parseFloat)
              let tempArray = [extractedLTLNG2[0], extractedLTLNG2[1]];
                outputArray<?php echo $key?>.push(tempArray);
+               let informasi = 'Nama Lokasi : <?php echo $value->nama_ruas_jalan?><br /> Type : <?php echo $value->nama_ruas?><br /> Kecamatan yang dilalui : <?php echo $value->nama_kecamatan?><br /><br /> Jenis Permukaan : <?php echo $value->jenis?><br /> Panjang Ruas : <?php echo $value->panjang_ruas?> km<br /> Lebar Ruas : <?php echo $value->lebar_ruas?> m<br /><br /><a href="#" onclick="open_dialog(<?php echo $value->id_lokasi?>)">Edit atau Tambah Ruas</a>';
                 if(no==1){
 
                   <?php if($value->type_ruas_id==4){?>
                   var LeafIcon = L.Icon.extend({
                     options: {
-                      shadowUrl: 'https://www.flaticon.com/svg/vstatic/svg/701/701666.svg?token=exp=1610449539~hmac=609e54a9f201d79f0c0d6b854418b83a',
+                      shadowUrl: '<?php echo base_url()?>assets/img/bridge.svg',
                       iconSize:     [38, 95],
                       shadowSize:   [0, 0],
                       iconAnchor:   [12, 64],
@@ -138,14 +139,14 @@
                     }
                   });
 
-                  var greenIcon = new LeafIcon({iconUrl: 'https://www.flaticon.com/svg/vstatic/svg/701/701666.svg?token=exp=1610449539~hmac=609e54a9f201d79f0c0d6b854418b83a'});
+                  var greenIcon = new LeafIcon({iconUrl: '<?php echo base_url()?>assets/img/bridge.svg'});
                   //awal array
                   var a<?php echo $key?> = new L.LatLng(extractedLTLNG2[0], extractedLTLNG2[1]);
                   var marker_a<?php echo $key?> = new L.Marker(a<?php echo $key?>, {icon: greenIcon}, {draggable: false}).bindPopup('Nama Lokasi : <?php echo $value->nama_ruas_jalan?><br /> Kecamatan yang dilalui : <?php echo $value->nama_kecamatan?><br /> Type : <?php echo $value->nama_ruas?><br /><br /> Jenis Permukaan : <?php echo $value->jenis?><br /> Panjang Ruas : <?php echo $value->panjang_ruas?> km<br /> Lebar Ruas : <?php echo $value->lebar_ruas?> m<br /><br /><a href="#" onclick="open_dialog(<?php echo $value->id_lokasi?>)">Edit atau Tambah Ruas</a> || <a href="#" onclick="open_dialog_hapus(<?php echo $value->id_lokasi?>)">Hapus</a>').addTo(map);
                 <?php }else{?>
                   //awal array
                   var a<?php echo $key?> = new L.LatLng(extractedLTLNG2[0], extractedLTLNG2[1]);
-                  var marker_a<?php echo $key?> = new L.Marker(a<?php echo $key?>, {draggable: false}).bindPopup('Nama Lokasi : <?php echo $value->nama_ruas_jalan?><br /> Type : <?php echo $value->nama_ruas?><br /> Kecamatan yang dilalui : <?php echo $value->nama_kecamatan?><br /><br /> Jenis Permukaan : <?php echo $value->jenis?><br /> Panjang Ruas : <?php echo $value->panjang_ruas?> km<br /> Lebar Ruas : <?php echo $value->lebar_ruas?> m<br /><br /><a href="#" onclick="open_dialog(<?php echo $value->id_lokasi?>)">Edit atau Tambah Ruas</a>').addTo(map);
+                  var marker_a<?php echo $key?> = new L.Marker(a<?php echo $key?>, {draggable: false}).bindPopup(informasi).addTo(map);
                 <?php } ?>
 
                 }
