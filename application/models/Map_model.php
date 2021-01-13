@@ -45,7 +45,7 @@ class Map_model extends CI_Model {
         $this->db->from("lokasi_waypoint as a");
         $this->db->join('master_kecamatan as b','a.kecamatan_id = b.id','left');
         $this->db->join('master_jenis_permukaan as c','a.type_id = c.id','left');
-        $this->db->group_by('a.nama_ruas_jalan');
+        // $this->db->group_by('a.nama_ruas_jalan');
         $this->db->where("a.delete_by =''");
         $query = $this->db->get();
         return $query->result();
@@ -58,7 +58,7 @@ class Map_model extends CI_Model {
         $this->db->join('master_jenis_permukaan as c','a.type_id = c.id','left');
         $this->db->where('a.type_ruas_id', 3);
         $this->db->where("a.delete_by =''");
-        $this->db->group_by('a.nama_ruas_jalan');
+        // $this->db->group_by('a.nama_ruas_jalan');
         $query = $this->db->get();
         return $query->result();
     }
@@ -70,7 +70,7 @@ class Map_model extends CI_Model {
         $this->db->join('master_jenis_permukaan as c','a.type_id = c.id','left');
         $this->db->where('a.type_ruas_id', 4);
         $this->db->where("a.delete_by =''");
-        $this->db->group_by('a.nama_ruas_jalan');
+        // $this->db->group_by('a.nama_ruas_jalan');
         $query = $this->db->get();
         return $query->result();
     }
