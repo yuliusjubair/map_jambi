@@ -131,6 +131,7 @@ class Home extends CI_Controller
             "waypoint1" => $modal_perimeter_list,
             "waypoint2" => $waypoint2
         );
+        $this->db->insert("list_lokasi", $data);
         $this->db->insert("lokasi_waypoint", $data);
         $id = $this->db->insert_id();
         if($id){
@@ -215,6 +216,11 @@ class Home extends CI_Controller
         if($type_ruas==3){
 
         	// $where = array("id_lokasi"=>$id);
+            $sql = $this->db->query("select * from list_lokasi where nama_ruas_jalan='".$nama_lokasi."' and kecamatan_id='".$kecamatan_id."'");
+            if($sql->num_rows()==0){
+                $this->db->insert("list_lokasi", $data);
+            }
+        
             $this->db->insert("lokasi_waypoint", $data);
             $idnya = $this->db->insert_id();
         }else{

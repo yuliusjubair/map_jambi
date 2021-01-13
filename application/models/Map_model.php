@@ -53,7 +53,7 @@ class Map_model extends CI_Model {
 
     function get_data_jalan(){
         $this->db->select("a.*, b.nama as nama_kecamatan, c.jenis, c.kode_warna");
-        $this->db->from("lokasi_waypoint as a");
+        $this->db->from("list_lokasi as a");
         $this->db->join('master_kecamatan as b','a.kecamatan_id = b.id','left');
         $this->db->join('master_jenis_permukaan as c','a.type_id = c.id','left');
         $this->db->where('a.type_ruas_id', 3);
@@ -65,7 +65,7 @@ class Map_model extends CI_Model {
 
     function get_data_jembatan(){
         $this->db->select("a.*, b.nama as nama_kecamatan, c.jenis, c.kode_warna");
-        $this->db->from("lokasi_waypoint as a");
+        $this->db->from("list_lokasi as a");
         $this->db->join('master_kecamatan as b','a.kecamatan_id = b.id','left');
         $this->db->join('master_jenis_permukaan as c','a.type_id = c.id','left');
         $this->db->where('a.type_ruas_id', 4);
