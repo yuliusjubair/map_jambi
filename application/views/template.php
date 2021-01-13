@@ -263,7 +263,7 @@
   <!-- Custom scripts for all pages-->
   <script src="<?=base_url()?>assets/js/sb-admin-2.js"></script>    
   <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.3.0/build/ol.js"></script>
-  <script src="<?=base_url('assets/js/gisapp.js')?>"></script>
+  <!-- <script src="<?//=base_url('assets/js/gisapp.js')?>"></script> -->
   
   
 
