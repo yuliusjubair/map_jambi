@@ -11,9 +11,15 @@ class Home extends CI_Controller
 
     public function index()
     {
+        $master_kecamatan = $this->map_model->get_data_kecamatan();
+        $master_jenis = $this->map_model->get_data_jenis();
     	$get_data = $this->map_model->get_data_type();
+        $master_type = $this->map_model->get_data_type_ruas();
         $data=array(
         	'content'=>'show_draw',
+            'master_kecamatan' => $master_kecamatan,
+            'master_jenis' => $master_jenis,
+            'master_type' => $master_type,
         	'row' => $get_data
         );
         $this->load->view('template',$data);
@@ -65,6 +71,7 @@ class Home extends CI_Controller
 
     public function show_detail($id)
     {
+        secure();
     	$get_data = $this->map_model->get_data_byId($id);
         $master_kecamatan = $this->map_model->get_data_kecamatan();
         $master_jenis = $this->map_model->get_data_jenis();
@@ -310,11 +317,17 @@ class Home extends CI_Controller
     }
 
     public function hapus_data($id) {
-        $delete1 =  $this->map_model->delete_byId($id);
-        if($delete1){
-            echo json_encode(array("status" => 200, "message" => 'Berhasil Delete Data Map'));
+        // secure();
+        if (!$this->ion_auth->logged_in()){
+            echo json_encode(array("status" => NULL, "message" => 'Gagal Delete Data, Anda harus Login!'));
         }else{
-            echo json_encode(array("status" => NULL, "message" => 'Gagal Delete Data'));
+
+            $delete1 =  $this->map_model->delete_byId($id);
+            if($delete1){
+                echo json_encode(array("status" => 200, "message" => 'Berhasil Delete Data Map'));
+            }else{
+                echo json_encode(array("status" => NULL, "message" => 'Gagal Delete Data'));
+            }
         }
     }
 

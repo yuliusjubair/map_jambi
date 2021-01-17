@@ -47,9 +47,10 @@
         <nav class="navbar navbar-expand navbar-light bg-white topbar mb-2 static-top shadow">
 
           <!-- Sidebar Toggle (Topbar) -->
-          <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+          <!-- <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
             <i class="fa fa-bars"></i>
-          </button>
+          </button> -->
+          Map Gis v 1.0
 
           <!-- Topbar Search -->
           <form class="col-6 d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
@@ -57,17 +58,10 @@
              <!--  <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2"> -->
 
               <div class="input-group-append">
-                <button class="btn btn-default" type="button">
+                <!-- <button class="btn btn-default" type="button">
                   Map Gis v 1.0
-                </button>
-                &nbsp;
-                <button type="button" class="btn btn-md btn-danger" data-dismiss="modal" onclick="add_location()">Add Location</button>
-                &nbsp;
-                <button type="button" class="btn btn-md btn-danger" data-dismiss="modal" onclick="view_table()">View Ruas Jalan</button>
-                &nbsp;
-                <button type="button" class="btn btn-md btn-danger" data-dismiss="modal" onclick="view_jembatan()">View Jembatan</button>
-                &nbsp;
-                <button type="button" class="btn btn-md btn-danger" data-dismiss="modal" onclick="view_map()">View Map</button>
+                </button> -->
+               
               </div>
             </div>
           </form>
@@ -96,13 +90,13 @@
             </li>
 
             <!-- Nav Item - Alerts -->
-            <li class="nav-item dropdown no-arrow mx-1">
+            <!--li class="nav-item dropdown no-arrow mx-1">
               <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-bell fa-fw"></i>
-                <!-- Counter - Alerts -->
+                 Counter - Alerts 
                 <span class="badge badge-danger badge-counter">3+</span>
               </a>
-              <!-- Dropdown - Alerts -->
+               Dropdown - Alerts 
               <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
                 <h6 class="dropdown-header">
                   Alerts Center
@@ -142,16 +136,14 @@
                 </a>
                 <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
               </div>
-            </li>
+            </li-->
 
             <!-- Nav Item - Messages -->
-            <li class="nav-item dropdown no-arrow mx-1">
+            <!-- <li class="nav-item dropdown no-arrow mx-1">
               <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-envelope fa-fw"></i>
-                <!-- Counter - Messages -->
                 <span class="badge badge-danger badge-counter">7</span>
               </a>
-              <!-- Dropdown - Messages -->
               <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="messagesDropdown">
                 <h6 class="dropdown-header">
                   Message Center
@@ -198,7 +190,7 @@
                 </a>
                 <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
               </div>
-            </li>
+            </li> -->
 
             <div class="topbar-divider d-none d-sm-block"></div>
 
@@ -210,23 +202,31 @@
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="#">
+                <?php if ($this->ion_auth->logged_in()){?>
+                <a class="dropdown-item" href="<?php echo base_url()?>admin/users">
                   <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Profile
+                  Add Users
                 </a>
-                <a class="dropdown-item" href="#">
+                <!-- <a class="dropdown-item" href="#">
                   <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                   Settings
                 </a>
                 <a class="dropdown-item" href="#">
                   <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
                   Activity Log
-                </a>
+                </a> -->
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                <a href="<?php echo base_url(); ?>auth/logout" class="dropdown-item">
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                   Logout
                 </a>
+              <?php }else{?>
+                <a class="dropdown-item" href="#">
+                  <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Profile
+                </a>
+                <?php }?>
+              
               </div>
             </li>
 
@@ -237,7 +237,32 @@
 
         <!-- Begin Page Content -->
         <div class="container-fluid">
+          <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
 
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+               
+                <li>
+                   <!-- <button type="button" class="btn btn-md btn-danger" data-dismiss="modal" onclick="view_map()">View Map</button> -->
+                   <a class="nav-link text-primary border" href="#" onclick="view_map()">Dashboard </a>
+                </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    View Data
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" onclick="view_table()">View Ruas Jalan </a>
+                    <a class="dropdown-item" onclick="view_jembatan()">View Jembatan </a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#" onclick="add_location()">Add Location</a>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </nav>
           <!-- Page Heading -->
           <?php $this->load->view($content)?>
 
@@ -254,7 +279,7 @@
   <!-- End of Page Wrapper -->
  
   <!-- Bootstrap core JavaScript-->
-  <script src="<?=base_url()?>assets/vendor/jquery/jquery.min.js"></script>
+  <!-- <script src="<?=base_url()?>assets/vendor/jquery/jquery.min.js"></script> -->
   <script src="<?=base_url()?>assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
   <!-- Core plugin JavaScript-->
