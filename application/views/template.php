@@ -50,7 +50,8 @@
           <!-- <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
             <i class="fa fa-bars"></i>
           </button> -->
-          Map Gis v 1.0
+          <a class="navbar-brand" href="index.html">Map Gis v 1.0</a>
+          
 
           <!-- Topbar Search -->
           <form class="col-6 d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
