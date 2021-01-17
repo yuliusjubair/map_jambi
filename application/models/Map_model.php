@@ -40,6 +40,26 @@ class Map_model extends CI_Model {
         return $query->result();
     }
 
+    function get_data_type_search($kecamatan_id, $type_ruas_id, $jenis){
+        $this->db->select("a.*, b.nama as nama_kecamatan, c.jenis, c.kode_warna, d.nama as nama_ruas");
+        $this->db->from("lokasi_waypoint as a");
+        $this->db->join('master_kecamatan as b','a.kecamatan_id = b.id','left');
+        $this->db->join('master_jenis_permukaan as c','a.type_id = c.id','left');
+        $this->db->join('master_type as d','a.type_ruas_id = d.id','left');
+        $this->db->where("a.delete_by =''");
+        if(!empty($kecamatan_id)){
+            $this->db->where('a.kecamatan_id', $kecamatan_id);
+        }
+        if(!empty($type_ruas_id)){
+            $this->db->where('a.type_ruas_id', $type_ruas_id);
+        }
+        if(!empty($jenis)){
+            $this->db->where('a.type_id', $jenis);
+        }
+        $query = $this->db->get();
+        return $query->result();
+    }
+
     function get_data(){
         $this->db->select("a.*, b.nama as nama_kecamatan, c.jenis, c.kode_warna");
         $this->db->from("lokasi_waypoint as a");

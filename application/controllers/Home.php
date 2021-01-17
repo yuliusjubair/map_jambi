@@ -15,11 +15,23 @@ class Home extends CI_Controller
         $master_jenis = $this->map_model->get_data_jenis();
     	$get_data = $this->map_model->get_data_type();
         $master_type = $this->map_model->get_data_type_ruas();
+        $kecamatan_id="";
+        $type_ruas="";
+        $jenis="";
+        if($_POST){
+            $kecamatan_id = $this->input->post('kecamatan');
+            $type_ruas = $this->input->post('type_ruas');
+            $jenis = $this->input->post('type');
+            $get_data = $this->map_model->get_data_type_search($kecamatan_id, $type_ruas, $jenis);
+        }
         $data=array(
         	'content'=>'show_draw',
             'master_kecamatan' => $master_kecamatan,
             'master_jenis' => $master_jenis,
             'master_type' => $master_type,
+            "kecamatan_id" => $kecamatan_id,
+            "type_ruas_id" => $type_ruas,
+            "jenis" => $jenis,
         	'row' => $get_data
         );
         $this->load->view('template',$data);

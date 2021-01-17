@@ -85,13 +85,21 @@ p.remarks, a{
               <i class="fas fa-angle-down arrow"></i>
             </div>
             <div class="content">
+              <form class="form-horizontal" method="POST" action="<?php echo base_url()?>home/index">
               <table class="table">
                 <tr>
                   <td>Kecamatan</td>
                   <td>
                        <select name="kecamatan" class="form-control">
-                           <?php foreach($master_kecamatan as $kecamatan):?>
-                            <option value="<?php echo $kecamatan->id?>"><?php echo $kecamatan->nama?></option>
+                        <option value="">-Tampilkan Semua-</option>
+                           <?php foreach($master_kecamatan as $kecamatan):
+                            if($kecamatan->id==$kecamatan_id){
+                              $sel = "selected";
+                            }else{
+                              $sel="";
+                            }
+                            ?>
+                            <option <?php echo $sel?> value="<?php echo $kecamatan->id?>"><?php echo $kecamatan->nama?></option>
                            <?php endforeach;?>
                          </select>
                   </td>
@@ -100,8 +108,15 @@ p.remarks, a{
                   <td>Type Ruas</td>
                   <td>
                     <select name="type_ruas" id="type_ruas" class="form-control">
-                       <?php foreach($master_type as $t):?>
-                        <option value="<?php echo $t->id?>"><?php echo $t->nama?></option>
+                      <option value="">-Tampilkan Semua-</option>
+                       <?php foreach($master_type as $t):
+                            if($t->id==$type_ruas_id){
+                              $sel = "selected";
+                            }else{
+                              $sel="";
+                            }
+                        ?>
+                        <option <?php echo $sel?> value="<?php echo $t->id?>"><?php echo $t->nama?></option>
                        <?php endforeach;?>
                      </select>
                   </td>
@@ -110,16 +125,24 @@ p.remarks, a{
                   <td>Jenis Permukaan</td>
                   <td>
                     <select name="type" class="form-control">
-                       <?php foreach($master_jenis as $type):?>
-                        <option value="<?php echo $type->id?>"><?php echo $type->jenis?></option>
+                      <option value="">-Tampilkan Semua-</option>
+                       <?php foreach($master_jenis as $type):
+                        if($type->id==$jenis){
+                              $sel = "selected";
+                            }else{
+                              $sel="";
+                            }
+                        ?>
+                        <option <?php echo $sel?> value="<?php echo $type->id?>"><?php echo $type->jenis?></option>
                        <?php endforeach;?>
                      </select>
                   </td>
                 </tr>
                 <tr>
-                  <td colspan="2" class="text-right"><button type="button" class="btn btn-sm btn-success"><i class="fas fa-search"></i> Cari</button></td>
+                  <td colspan="2" class="text-right"><button type="submit" class="btn btn-sm btn-success"><i class="fas fa-search"></i> Cari</button></td>
                 </tr>
               </table>
+              </form>
             </div>
           </div>
         </div>
