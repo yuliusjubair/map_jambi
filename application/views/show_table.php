@@ -2,15 +2,15 @@
 <link href="cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.css" rel="stylesheet">
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>   
 <script src="//cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>   
-
 <div class="row">
-  <div class="col-lg-12 shadow">
-    <div class="card">
+<div class="col-lg-12">
     <div class="panel panel-default">
-     <center><h3>Data Ruas Jalan By Table</h3></center>
-      <div class="panel-body">
-         <div class="table-responsive">
-            <div class="col-sm-12">
+        <div class="panel-heading">
+            Data Ruas Jalan By Table
+        </div>
+        <!-- /.panel-heading -->
+        <div class="panel-body">
+          <div class="table-responsive">
                 <table id="table" style="font-size: 12px;" class="datatable table table-hover table-bordered data">
                     <thead>
                         <tr>
@@ -82,6 +82,20 @@
                     <tfoot></tfoot>
                 </table>
                 </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<div class="row">
+  <div class="col-lg-12 shadow">
+    <div class="card">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+          
+      </div>
+      <div class="panel-body">
+            <div class="col-sm-12">
+              <
           </div> 
       </div>
   </div>

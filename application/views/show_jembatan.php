@@ -6,12 +6,12 @@
 
 <div class="row">
   <div class="col-lg-12 shadow">
-    <div class="card">
-  <div class="panel panel-default">
-     <center><h3>Data Jembatan By Table</h3></center>
-      <div class="panel-body">
-         <div class="table-responsive">
-            <div class="col-sm-12">
+   <div class="panel panel-default">
+        <div class="panel-heading">
+            Data Jembatan By Table
+        </div>
+        <!-- /.panel-heading -->
+        <div class="panel-body">
                 <table id="table" style="font-size: 12px;" class="datatable table table-hover table-bordered data">
                     <thead>
                         <tr>
@@ -78,10 +78,6 @@
       </div>
       
   </div>
-</div>
-   </div>
-</div>
-
   
     <script type="text/javascript">
       table = $('.datatable').DataTable({

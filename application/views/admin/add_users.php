@@ -3,15 +3,15 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
+                <h3 class="modal-title">Add Users Form</h3>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><br />
-                <!-- <h5 class="modal-title_popup">Users Form</h5> -->
             </div>
             <div class="modal-body form">
                 <form action="#" id="form_modal_popup" class="form-horizontal">
                     <input type="hidden" value="0" id="modal_id" name="modal_id"/>
                     <div class="form-body">
                         <div class="form-group">
-                            <label class="control-label col-sm-6">Username<span style="color:red">*</span></label>
+                            <label class="control-labelxx col-sm-6">Username<span style="color:red">*</span></label>
                             <div class="col-sm-12">
                                 <input id="modal_username" name="modal_username" placeholder="Username" class="form-control" type="text" required>
                                 <span class="help-block"></span>
@@ -20,7 +20,7 @@
                     </div>
 					<div class="form-body">
                         <div class="form-group">
-                            <label class="control-label col-sm-6">Password<span style="color:red">*</span></label>
+                            <label class="control-labelxx col-sm-6">Password<span style="color:red">*</span></label>
                             <div class="col-sm-12">
                                 <input id="modal_password" name="modal_password" placeholder="Password" class="form-control" type="password" required>
                                 <span class="help-block"></span>
@@ -29,7 +29,7 @@
                     </div>
 					<div class="form-body">
                         <div class="form-group">
-                            <label class="control-label col-sm-6">Name<span style="color:red">*</span></label>
+                            <label class="control-labelxx col-sm-6">Name<span style="color:red">*</span></label>
                             <div class="col-sm-12">
                                 <input id="modal_name" name="modal_name" placeholder="Name" class="form-control" type="text" required>
                                 <span class="help-block"></span>

@@ -17,9 +17,9 @@
             </div>   
         </div>
     </div>
-    <div class="col-md-4 shadow" style="padding:5px; border-radius:5px;">
+    <div class="col-md-4 shadow">
 
-    <h5 class="modal-title alert alert-success" id="exampleModalLabel">Edit Data Location</h5><br />
+    <h4 class="modal-title alert alert-success" id="exampleModalLabel">Edit Data Location</h4>
       <form action="<?php echo base_url()?>home/update_data" method="POST" id="form_modal" class="form-horizontal" enctype="multipart/form-data">
             <input type="hidden" id="modal_id" name="modal_id" value="<?php echo $row->id_lokasi?>"/>
             <input id="waypoint1" name="waypoint1" type="hidden" required readonly value="<?php echo $row->waypoint1?>">
@@ -28,7 +28,7 @@
             <div class="form-body">
               <?php if($row->type_ruas_id==4){?>
               <div class="form-group">
-                    <label class="control-label col-sm-6">Nama Jembatan<span style="color:red">*</span></label>
+                    <label class="control-labelxx col-sm-6">Nama Jembatan<span style="color:red">*</span></label>
                     <div class="col-sm-12">
                         <input id="nama_jembatan" name="nama_jembatan" placeholder="nama jembatan" class="form-control" type="text" required value="<?php echo $row->nama_jembatan?>">
                         <span class="help-block"></span>
@@ -36,14 +36,14 @@
                 </div>
               <?php } ?>
                 <div class="form-group">
-                    <label class="control-label col-sm-6">Nama Lokasi<span style="color:red">*</span></label>
+                    <label class="control-labelxx col-sm-6">Nama Lokasi<span style="color:red">*</span></label>
                     <div class="col-sm-12">
                         <input id="nama_lokasi" name="nama_lokasi" placeholder="nama_lokasi" class="form-control" type="text" required value="<?php echo $row->nama_ruas_jalan?>">
                         <span class="help-block"></span>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-sm-6">Kecamatan<span style="color:red">*</span></label>
+                    <label class="control-labelxx col-sm-6">Kecamatan<span style="color:red">*</span></label>
                     <div class="col-sm-12">
                         <select name="kecamatan" class="form-control">
                            <?php foreach($master_kecamatan as $kecamatan):
@@ -59,12 +59,12 @@
                         <span class="help-block"></span>
                     </div>
                 </div>
-                <div class="containerx">
+                <div class="container">
                   <div class="row">
                     <div class="col">
                       <div class="form-group">
-                          <label class="control-label col-sm-8">Panjang Ruas (Km)<span style="color:red">*</span></label>
-                          <div class="col-sm-12">
+                          <label class="control-labelxx col-sm-6">Panjang Ruas (Km)<span style="color:red">*</span></label>
+                          <div class="col-sm-6">
                               <input id="panjang" name="panjang" placeholder="Panjang" class="form-control" type="text" required value="<?php echo $row->panjang_ruas?>">
                               <span class="help-block"></span>
                           </div>
@@ -72,8 +72,8 @@
                     </div>
                     <div class="col">
                       <div class="form-group">
-                          <label class="control-label col-sm-8">Lebar Ruas (M)<span style="color:red">*</span></label>
-                          <div class="col-sm-12">
+                          <label class="control-labelxx col-sm-6">Lebar Ruas (M)<span style="color:red">*</span></label>
+                          <div class="col-sm-6">
                               <input id="lebar" name="lebar" placeholder="Lebar" class="form-control" type="text" required value="<?php echo $row->lebar_ruas?>">
                               <span class="help-block"></span>
                           </div>
@@ -81,12 +81,12 @@
                     </div>
                   </div>
                 </div>
-                <div class="containerx">
+                <div class="container">
                   <div class="row">
                     <div class="col">
                       <div class="form-group">
-                        <label class="control-label col-sm-6">Jenis Permukaan<span style="color:red">*</span></label>
-                        <div class="col-sm-12">
+                        <label class="control-labelxx col-sm-6">Jenis Permukaan<span style="color:red">*</span></label>
+                        <div class="col-sm-6">
                             <select name="type" class="form-control">
                                <?php foreach($master_jenis as $type):
                                 if($type->id==$row->type_id){
@@ -104,8 +104,8 @@
                   </div>
                   <div class="col">
                     <div class="form-group">
-                        <label class="control-label col-sm-8">Panjang Jenis Permukaan (Km)<span style="color:red">*</span></label>
-                        <div class="col-sm-12">
+                        <label class="control-labelxx col-sm-6">Panjang Jenis Permukaan (Km)<span style="color:red">*</span></label>
+                        <div class="col-sm-6">
                             <input id="panjang_jenis" name="panjang_jenis" placeholder="Panjang Jenis Permukaan" class="form-control" type="text" required value="<?php echo $row->panjang_jenis?>">
                             <span class="help-block"></span>
                         </div>
@@ -113,10 +113,10 @@
                   </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-sm-6">Upload Video</label>
+                    <label class="control-labelxx col-sm-6">Upload Video</label>
                     <div class="col-sm-12">
                         <input id="video" name="video" placeholder="Link Video" class="form-control" type="file">
-                        <label class="control-label col-md-12" id="modal_p_file_txt" name="modal_p_file_txt">
+                        <label class="control-labelxx col-md-12" id="modal_p_file_txt" name="modal_p_file_txt">
                           <?php echo $row->link_video?>
                         </label>
                         <span class="help-block"></span>
@@ -125,7 +125,7 @@
                 <?php if($row->type_ruas_id==3){?>
                 <div class="form-group">
                     <center>
-                      <label class="control-label col-sm-12 alert alert-success">Panjang Tiap Kondisi<span style="color:red">*</span></label>
+                      <label class="control-labelxx col-sm-12 alert alert-success">Panjang Tiap Kondisi<span style="color:red">*</span></label>
                     </center>
                     <div class="col-sm-12">
                       <div class="table-responsive">
@@ -151,7 +151,7 @@
               <?php }else{?>
                 <div class="form-group">
                       <center>
-                        <label class="control-label col-sm-12 alert alert-success">Tipe/Kondisi<span style="color:red">*</span></label>
+                        <label class="control-labelxx col-sm-12 alert alert-success">Tipe/Kondisi<span style="color:red">*</span></label>
                       </center>
                       <div class="col-sm-12">
                         <div class="table-responsive">

@@ -16,9 +16,9 @@
             </div>   
         </div>
     </div>
-    <div class="col-md-4 shadow" style="padding:5px; border-radius:5px;">
+    <div class="col-md-4 shadow">
 
-    <h5 class="modal-title alert alert-success" id="exampleModalLabel">Add Data Location</h5><br />
+    <h4 class="modal-title alert alert-success" id="exampleModalLabel">Add Data Location</h4>
       <form action="<?php echo base_url()?>home/add_data" method="POST" id="form_id" class="form-horizontal">
             <input type="hidden" id="modal_id" name="modal_id" value="<?php //echo $row->id_lokasi?>"/>
             <input id="waypoint1" name="waypoint1" type="hidden" required readonly value="<?php //echo $row->waypoint1?>">
@@ -26,7 +26,7 @@
             <input type="hidden" value="0" name="id">
             <div class="form-body">
               <div class="form-group">
-                    <label class="control-label col-sm-12">Type<span style="color:red">*</span></label>
+                    <label class="control-label col-sm-1">Type<span style="color:red">*</span></label>
                     <div class="col-sm-12">
                          <select name="type_ruas" id="type_ruas" class="form-control">
                            <?php foreach($master_type as $t):?>
@@ -38,14 +38,14 @@
                 </div>
                 <div class="ruas_jalan">
                   <div class="form-group">
-                      <label class="control-label col-sm-6">Nama Ruas Jalan<span style="color:red">*</span></label>
+                      <label class="col-sm-6">Nama Ruas Jalan<span style="color:red">*</span></label>
                       <div class="col-sm-12">
                           <input id="nama_lokasi" name="nama_lokasi" placeholder="nama ruas jalan" class="form-control" type="text" required value="<?php //echo $row->nama_lokasi?>">
                           <span class="help-block"></span>
                       </div>
                   </div>
                   <div class="form-group">
-                      <label class="control-label col-sm-12">Kecamatan yang dilalui<span style="color:red">*</span></label>
+                      <label class="control-labelxx col-sm-6">Kecamatan yang dilalui<span style="color:red">*</span></label>
                       <div class="col-sm-12">
                           <!-- <input id="kecamatan" name="kecamatan" placeholder="Kecamatan" class="form-control" type="text" required value="<?php //echo $row->nama_lokasi?>">
                            -->
@@ -57,12 +57,12 @@
                           <span class="help-block"></span>
                       </div>
                   </div>
-                  <div class="containerx">
+                  <div class="container">
                     <div class="row">
                       <div class="col">
                         <div class="form-group">
-                            <label class="control-label col-sm-12">Panjang Ruas (Km)<span style="color:red">*</span></label>
-                            <div class="col-sm-12">
+                            <label class="control-labelxx col-sm-6">Panjang Ruas (Km)<span style="color:red">*</span></label>
+                            <div class="col-sm-6">
                                 <input id="panjang" name="panjang" placeholder="Panjang" class="form-control" type="text" required value="<?php //echo $row->alamat?>">
                                 <span class="help-block"></span>
                             </div>
@@ -70,8 +70,8 @@
                       </div>
                       <div class="col">
                         <div class="form-group">
-                            <label class="control-label col-sm-8">Lebar Ruas (M)<span style="color:red">*</span></label>
-                            <div class="col-sm-12">
+                            <label class="control-labelxx col-sm-6">Lebar Ruas (M)<span style="color:red">*</span></label>
+                            <div class="col-sm-6  ">
                                 <input id="lebar" name="lebar" placeholder="Lebar" class="form-control" type="text" required value="<?php //echo $row->alamat?>">
                                 <span class="help-block"></span>
                             </div>
@@ -79,12 +79,12 @@
                       </div>
                     </div>
                   </div>
-                  <div class="containerx">
+                  <div class="container">
                     <div class="row">
                       <div class="col">
                         <div class="form-group">
-                          <label class="control-label col-sm-6">Jenis Permukaan<span style="color:red">*</span></label>
-                          <div class="col-sm-12">
+                          <label class="control-labelx col-sm-6">Jenis Permukaan<span style="color:red">*</span></label>
+                          <div class="col-sm-6">
                               <!-- <input id="type" name="type" placeholder="Type" class="form-control" type="text" required value="<?php //echo $row->nama_lokasi?>"> -->
                               <select name="type" class="form-control">
                                  <?php foreach($master_jenis as $type):?>
@@ -97,8 +97,8 @@
                       </div>
                       <div class="col">
                         <div class="form-group">
-                          <label class="control-label col-sm-8">Panjang Jenis Permukaan (Km)<span style="color:red">*</span></label>
-                          <div class="col-sm-12">
+                          <label class="control-labelxx col-sm-6">Panjang Jenis Permukaan (Km)<span style="color:red">*</span></label>
+                          <div class="col-sm-6">
                               <input id="panjang_jenis" name="panjang_jenis" placeholder="Panjang Jenis Permukaan" class="form-control" type="text" required value="<?php //echo $row->panjang_jenis?>">
                               <span class="help-block"></span>
                           </div>
@@ -107,7 +107,7 @@
                   </div>
                    <div class="form-group">
                       <center>
-                        <label class="control-label col-sm-12 alert alert-success">Panjang Tiap Kondisi<span style="color:red">*</span></label>
+                        <label class="control-labelxx col-sm-12 alert alert-success">Panjang Tiap Kondisi<span style="color:red">*</span></label>
                       </center>
                       <div class="col-sm-12">
                         <div class="table-responsive">
