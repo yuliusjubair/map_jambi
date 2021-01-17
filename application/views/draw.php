@@ -403,12 +403,17 @@ var prm =[];
 
  function placeOrder(form){
         var wp1 = $("#modal_perimeter_list").val();
+        var nama_lokasi = $("#nama_lokasi").val();
         if(wp1==""){
           alert('Anda Belum Menentukan Titik Point Map');
           return false;
         }else{
           // form.submit();
+          if(nama_lokasi==""){
+            return false;
+          }else{
            document.getElementById("form_id").submit();
+          }
         }
     }
 </script>
