@@ -18,11 +18,13 @@ class Home extends CI_Controller
         $kecamatan_id="";
         $type_ruas="";
         $jenis="";
+        $kirim=false;
         if($_POST){
             $kecamatan_id = $this->input->post('kecamatan');
             $type_ruas = $this->input->post('type_ruas');
             $jenis = $this->input->post('type');
             $get_data = $this->map_model->get_data_type_search($kecamatan_id, $type_ruas, $jenis);
+            $kirim=true;
         }
         $data=array(
         	'content'=>'show_draw',
@@ -32,7 +34,8 @@ class Home extends CI_Controller
             "kecamatan_id" => $kecamatan_id,
             "type_ruas_id" => $type_ruas,
             "jenis" => $jenis,
-        	'row' => $get_data
+        	'row' => $get_data,
+            "posting" => $kirim
         );
         $this->load->view('template',$data);
     }

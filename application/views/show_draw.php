@@ -146,6 +146,28 @@ p.remarks, a{
             </div>
           </div>
         </div>
+        <?php if($posting==true):?>
+       
+            <div class="card mb-2" style="margin-top:10px;">
+              <div class="card-header">
+                <h4>Hasil Pencarian</h4>
+              </div>
+                <div class="card-body">
+                <?php 
+                  foreach ($row as $key => $value) { 
+                    $nama_kecamatan = (!empty($kecamatan_id))?$value->nama_kecamatan:'';
+                    $nama_ruas = (!empty($type_ruas_id))?$value->nama_ruas:'';
+                    $jenis =  (!empty($jenis))?$value->jenis:'';
+                  }
+                ?>
+                <div class="small font-italic text-muted mb-4">
+                  Kecamatan = <?php echo $nama_kecamatan?><br>
+                  Type Ruas = <?php echo $nama_ruas?><br>
+                  Jenis Permukaan = <?php echo $jenis?>
+                </div>
+              </div>
+            </div>
+    <?php endif;?>
         <div class="card mb-2" style="margin-top:10px;">
             <h5 class="card-header">Video</h5>
             <div class="card-body">
