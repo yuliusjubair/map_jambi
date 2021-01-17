@@ -303,7 +303,7 @@
       window.location.href="<?php echo base_url()?>home/draw/";
   }
   function kembali(){
-      window.location.href="<?php echo base_url()?>home/show_draw/";
+      window.location.href="<?php echo base_url()?>home/index/";
   }
   function view_table(){
       window.location.href="<?php echo base_url()?>home/show_table/";
