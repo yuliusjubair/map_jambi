@@ -36,7 +36,7 @@ summary {
 audio,
 canvas,
 progress,
-video {
+video2 {
 	display: inline-block;
 	vertical-align: baseline
 }
@@ -6937,7 +6937,7 @@ button.list-group-item-danger.active:hover {
 	border-bottom-color: #ebccd1
 }
 
-.embed-responsive {
+/*.embed-responsive {
 	position: relative;
 	display: block;
 	height: 0;
@@ -6965,7 +6965,7 @@ button.list-group-item-danger.active:hover {
 
 .embed-responsive-4by3 {
 	padding-bottom: 75%
-}
+}*/
 
 .well {
 	min-height: 20px;
