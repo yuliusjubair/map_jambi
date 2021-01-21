@@ -261,6 +261,7 @@
                     <a class="dropdown-item" href="#" onclick="view_jembatan()">View Jembatan </a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="#" onclick="add_location()">Add Location</a>
+                    <a class="dropdown-item" href="#" onclick="view_kecamatan()">Data Kecamatan</a>
                   </div>
                 </li>
               </ul>
@@ -313,5 +314,8 @@
     }  
   function view_map(){
       window.location.href="<?php echo base_url()?>home/index/";
-    }  
+    }
+  function view_kecamatan(){
+      window.location.href="<?php echo base_url()?>kecamatan/index/";
+  }  
 </script>
