@@ -373,4 +373,32 @@ class Home extends CI_Controller
         );
         $this->load->view('template',$data);
     }
+
+    public function excel_ruas_jalan()
+    {
+        $get_data = $this->map_model->get_data_jalan();
+        $master_kondisi = $this->map_model->get_data_kondisi();
+        $master_jenis = $this->map_model->get_data_jenis();
+        $data=array(
+            'content'=>'show_table',
+            'row' => $get_data,
+            'master_kondisi' => $master_kondisi,
+            'master_jenis' => $master_jenis
+        );
+        $this->load->view('excel_ruas_jalan',$data);
+    }
+
+    public function excel_jembatan()
+    {
+        $get_data = $this->map_model->get_data_jembatan();
+        $master_kondisi = $this->map_model->get_data_kondisi();
+        $master_jenis = $this->map_model->get_data_jenis();
+        $data=array(
+            'content'=>'show_jembatan',
+            'row' => $get_data,
+            'master_kondisi' => $master_kondisi,
+            'master_jenis' => $master_jenis
+        );
+        $this->load->view('excel_jembatan',$data);
+    }
 }

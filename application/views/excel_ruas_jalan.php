@@ -1,10 +1,34 @@
-<link href="//cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css" rel="stylesheet">
-<link href="cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.css" rel="stylesheet">
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>   
-<script src="//cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>   
-<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.3.1/js/dataTables.buttons.min.js"></script> 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.3.1/js/buttons.html5.min.js"></script>
+<?php 
+header('Content-Type: application/vnd.ms-excel');
+header('Content-Disposition: attachment;filename=DDR1.xls');
+header('Cache-Control: max-age=0');
+?>
+<style type="text/css">
+  /* Housekeeping */
+html{
+    font:0.75em/1.5 sans-serif;
+    color:#333;
+    background-color:#fff;
+    padding:1em;
+}
+
+/* Tables */
+table{
+    width:100%;
+    margin-bottom:1em;
+    border-collapse: collapse;
+}
+th{
+    font-weight:bold;
+    background-color:#ddd;
+}
+th,
+td{
+    padding:0.5em;
+    border:1px solid #ccc;
+}
+
+</style>
 <div class="row">
 <div class="col-lg-12">
     <div class="panel panel-default">
@@ -89,50 +113,3 @@
       </div>
     </div>
   </div>
-<!-- <div class="row">
-  <div class="col-lg-12 shadow">
-    <div class="card">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-          
-      </div>
-      <div class="panel-body">
-            <div class="col-sm-12">
-              <
-          </div> 
-      </div>
-  </div>
-</div>
-   </div>
-</div> -->
-
-  
-    <script type="text/javascript">
-      table = $('.datatable').DataTable({
-            responsive: true,
-            "ordering": false,
-            columnDefs: [
-              { visible: false, targets: 1 }
-            ],
-            "dom": 'Bfrtip',
-            "buttons": [
-             {
-                 "text": '<i class="fa fa-download"></i>&nbsp;&nbsp;Download',
-                 "titleAttr": 'Download',
-                 "className": 'btn btn-primary ExportDialog',
-                 "action" : download_excel
-             },
-            ],
-        });
-
-      $('#table tbody').on('click', 'tr', function () {
-        var data = table.row( this ).data();
-        alert( 'View Data On Map ' );
-        window.location.href="<?php echo site_url('home/show_detail')?>/"+data[1];
-    });
-
-    function download_excel(){
-        var myurl='<?php echo base_url().'home/excel_ruas_jalan'; ?>';
-        window.location = myurl;
-    }
-    </script>
