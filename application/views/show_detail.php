@@ -81,6 +81,8 @@
                     </div>
                   </div>
                 </div>
+                
+                <?php if($row->type_ruas_id==3){?>
                 <div class="container">
                   <div class="row">
                     <div class="col">
@@ -112,6 +114,13 @@
                     </div>
                   </div>
                 </div>
+                <div class="row">
+                  <div class="text-sm font-weight-bold text-success text-uppercase mb-3">
+                    <a href="#" onclick="view_jenis_permukaan('<?php echo $row->id_lokasi?>', '<?php echo $row->nama_ruas_jalan?>','<?php echo $row->type_ruas_id?>')" class="link" href="">lihat detail jenis permukaan</a>
+                  </div>
+                </div>
+              <?php } ?>
+
                 <div class="form-group">
                     <label class="control-labelxx col-sm-6">Upload Video</label>
                     <div class="col-sm-12">
@@ -225,6 +234,33 @@
     </div>
    
 </div>
+
+<div class="modal fade" id="modal_form_popup" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">View Jenis Permukaan</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><br />
+            </div>
+            <div class="modal-body form">
+              <div class="table-responsive">
+                <form action="#" id="form_detail_jenis" class="form-horizontal">
+                  <!--   <table class="table table-bordered">
+                      <tr>
+                        <th>No</th>
+                        <th>Jenis Permukaan</th>
+                        <th>Panjang (Km)</th>
+                      </tr>
+                    </table> -->
+                </form>
+              </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-md btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 <script src="<?=base_url()?>assets/vendor/jquery/jquery.min.js"></script>
 
    <link rel = "stylesheet" href = "http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css"/>
@@ -232,6 +268,25 @@
       <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.2.3/leaflet.draw.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.2.3/leaflet.draw.css" rel="stylesheet" />
     <script>
+
+      function view_jenis_permukaan(id, $nama, id_ruas) {
+        $.ajax({
+            url : "<?php echo site_url('home/view_jenis_permukaan')?>/"+id+"/"+id_ruas,
+            type: "GET",
+            dataType: "html",
+            success: function(data) {
+               $('#form_detail_jenis').html('');
+               $('#form_detail_jenis').html(data);
+            },
+            error: function (jqXHR, textStatus, errorThrown)  {
+                alert('Error get data from ajax'+jqXHR.responseText);
+            }
+        });
+
+          $('#modal_form_popup').modal('show');
+          $('.modal-title').text('View Jenis Permukaan : ' + $nama);
+      }
+
          // Creating map options
          var mapOptions = {
             center: [-1.2094908817570897, 103.79153016954439],

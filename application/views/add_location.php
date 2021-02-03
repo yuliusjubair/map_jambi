@@ -29,21 +29,21 @@
                 <div class="form-group">
                     <label class="control-label col-sm-6">Nama Lokasi<span style="color:red">*</span></label>
                     <div class="col-sm-12">
-                        <input id="nama_lokasi" name="nama_lokasi" placeholder="nama_lokasi" class="form-control" type="text" required value="<?php //echo $row->nama_lokasi?>">
+                        <input id="nama_lokasi" name="nama_lokasi" placeholder="nama_lokasi" class="form-control" type="text" required>
                         <span class="help-block"></span>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-sm-6">Alamat<span style="color:red">*</span></label>
                     <div class="col-sm-12">
-                        <input id="alamat" name="alamat" placeholder="Alamat" class="form-control" type="text" required value="<?php //echo $row->alamat?>">
+                        <input id="alamat" name="alamat" placeholder="Alamat" class="form-control" type="text" required>
                         <span class="help-block"></span>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-sm-6">Keterangan<span style="color:red">*</span></label>
                     <div class="col-sm-12">
-                        <textarea id="keterangan" name="keterangan" placeholder="Keterangan" class="form-control" required><?php //echo $row->keterangan?></textarea>
+                        <textarea id="keterangan" name="keterangan" placeholder="Keterangan" class="form-control" required></textarea>
                         <span class="help-block"></span>
                     </div>
                 </div>

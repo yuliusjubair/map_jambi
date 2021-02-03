@@ -19,7 +19,7 @@
     <div class="col-md-4 shadow">
 
     <h4 class="modal-title alert alert-success" id="exampleModalLabel">Add Data Location</h4>
-      <form action="<?php echo base_url()?>home/add_data" method="POST" id="form_id" class="form-horizontal">
+      <form action="<?php echo base_url()?>home/add_data" method="POST" id="form_id" class="form-horizontal" novalidate>
             <input type="hidden" id="modal_id" name="modal_id" value="<?php //echo $row->id_lokasi?>"/>
             <input id="waypoint1" name="waypoint1" type="hidden" required readonly value="<?php //echo $row->waypoint1?>">
             <input id="waypoint2" name="waypoint2" type="hidden" required readonly value="<?php //echo $row->waypoint2?>">
@@ -40,7 +40,7 @@
                   <div class="form-group">
                       <label class="col-sm-6">Nama Ruas Jalan<span style="color:red">*</span></label>
                       <div class="col-sm-12">
-                          <input id="nama_lokasi" name="nama_lokasi" placeholder="nama ruas jalan" class="form-control" type="text" required value="<?php //echo $row->nama_lokasi?>">
+                          <input id="nama_lokasi" name="nama_lokasi" placeholder="nama ruas jalan" class="form-control" type="text" required>
                           <span class="help-block"></span>
                       </div>
                   </div>
@@ -85,7 +85,7 @@
                         <div class="form-group">
                           <label class="control-labelxxx col-sm-6">Jenis Permukaan<span style="color:red">*</span></label>
                           <div class="col-sm-6">
-                              <!-- <input id="type" name="type" placeholder="Type" class="form-control" type="text" required value="<?php //echo $row->nama_lokasi?>"> -->
+                             
                               <select name="type" class="form-control">
                                  <?php foreach($master_jenis as $type):?>
                                   <option value="<?php echo $type->id?>"><?php echo $type->jenis?></option>
@@ -136,14 +136,14 @@
                    <div class="form-group">
                       <label class="control-labelxx col-sm-6">Nama Jembatan<span style="color:red">*</span></label>
                       <div class="col-sm-12">
-                          <input id="nama_jembatan" name="nama_jembatan" placeholder="nama jembatan" class="form-control" type="text" required value="<?php //echo $row->nama_lokasi?>">
+                          <input id="nama_jembatan" name="nama_jembatan" placeholder="nama jembatan" class="form-control" type="text" required>
                           <span class="help-block"></span>
                       </div>
                   </div>
                   <div class="form-group">
                       <label class="control-labelxx col-sm-6">Nama Ruas Jalan<span style="color:red">*</span></label>
                       <div class="col-sm-12">
-                          <input id="nama_lokasi" name="nama_lokasi" placeholder="nama ruas jalan" class="form-control" type="text" required value="<?php //echo $row->nama_lokasi?>">
+                          <input id="nama_lokasi_jembatan" name="nama_lokasi_jembatan" placeholder="nama ruas jalan" class="form-control" type="text" required>
                           <span class="help-block"></span>
                       </div>
                   </div>
@@ -166,7 +166,7 @@
                         <div class="form-group">
                             <label class="control-labelxx col-sm-6">Panjang Ruas (Km)<span style="color:red">*</span></label>
                             <div class="col-sm-6">
-                                <input id="panjang" name="panjang" placeholder="Panjang" class="form-control" type="text" required value="<?php //echo $row->alamat?>">
+                                <input id="panjang_jembatan" name="panjang_jembatan" placeholder="Panjang" class="form-control" type="text" required value="<?php //echo $row->alamat?>">
                                 <span class="help-block"></span>
                             </div>
                         </div>
@@ -175,7 +175,7 @@
                         <div class="form-group">
                             <label class="control-labelxx col-sm-6">Lebar Ruas (M)<span style="color:red">*</span></label>
                             <div class="col-sm-6">
-                                <input id="lebar" name="lebar" placeholder="Lebar" class="form-control" type="text" required value="<?php //echo $row->alamat?>">
+                                <input id="lebar_jembatan" name="lebar_jembatan" placeholder="Lebar" class="form-control" type="text" required value="<?php //echo $row->alamat?>">
                                 <span class="help-block"></span>
                             </div>
                         </div>
@@ -249,7 +249,7 @@
               <input id="modal_perimeter_list" name="modal_perimeter_list"  class="form-control" type="hidden">
               <input id="waypoint3" name="waypoint3"  class="form-control" type="hidden">
                <div class="modal-footer">
-                <button type="submit" class="btn btn-md btn-primary" id="btnSave" onClick="placeOrder(this.form)">Save Changes</button>
+                <button type="button" class="btn btn-md btn-primary" id="btnSave" onClick="placeOrder(this.form)">Save Changes</button>
                 <button type="button" class="btn btn-md btn-danger" data-dismiss="modal" onclick="kembali()">Back to Dashboard</button>
             </div>
             </div>
@@ -408,12 +408,12 @@ var prm =[];
           alert('Anda Belum Menentukan Titik Point Map');
           return false;
         }else{
-          // form.submit();
+          /*// form.submit();
           if(nama_lokasi==""){
             return false;
-          }else{
+          }else{*/
            document.getElementById("form_id").submit();
-          }
+          //}
         }
     }
 </script>

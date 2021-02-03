@@ -20,6 +20,7 @@
                         <tr>
                             <th rowspan="3" style="text-align:center;" valign="top">No</th>
                             <th rowspan="3" style="text-align:center;" valign="top">id</th>
+                            <th rowspan="3" style="text-align:center;" valign="top">Nama Jembatan</th>
                             <th rowspan="3" style="text-align:center;" valign="top">Nama Ruas Jalan</th>
                             <th rowspan="3" style="text-align:center;">Kec. yang dilalui</th>
                             <th rowspan="3" style="text-align:center;">Panjang Ruas(km)</th>
@@ -46,6 +47,7 @@
                       <tr>
                         <td><?php echo $no?></td>
                         <td><?php echo $r->id_lokasi?></td>
+                        <td><?php echo $r->nama_jembatan?></td>
                         <td><?php echo $r->nama_ruas_jalan?></td>
                         <td><?php echo $r->nama_kecamatan?></td>
                         <td><?php echo $r->panjang_ruas?></td>

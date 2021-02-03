@@ -122,11 +122,17 @@ class Home extends CI_Controller
         $id = $this->input->post('modal_id');
         $type_ruas = $this->input->post('type_ruas');
         $nama_lokasi = $this->input->post('nama_lokasi');
+        $nama_lokasi_jembatan = $this->input->post('nama_lokasi_jembatan');
+
         $nama_jembatan = $this->input->post('nama_jembatan');
         $kecamatan = $this->input->post('kecamatan');
         $panjang_jenis = str_replace(",", ".", $this->input->post('panjang_jenis'));
+        
         $panjang = str_replace(",", ".", $this->input->post('panjang'));
+        $panjang_jembatan = str_replace(",", ".", $this->input->post('panjang_jembatan'));
         $lebar = str_replace(",", ".", $this->input->post('lebar'));
+        $lebar_jembatan = str_replace(",", ".", $this->input->post('lebar_jembatan'));
+        
         $jumlah_bentang = str_replace(",", ".", $this->input->post('jumlah_bentang'));
         $type = $this->input->post('type');
         $modal_perimeter_list = $this->input->post('modal_perimeter_list');
@@ -140,13 +146,14 @@ class Home extends CI_Controller
             }
         }
         die;*/
+        // print_r($_POST);die;
         $data = array(
             "type_ruas_id" => $type_ruas,
-            "nama_jembatan" => $nama_jembatan,
-            "nama_ruas_jalan" => $nama_lokasi,
+            "nama_jembatan" => !empty($nama_jembatan)?$nama_jembatan:'-',
+            "nama_ruas_jalan" => ($type_ruas==3)?$nama_lokasi:$nama_lokasi_jembatan,
             "kecamatan_id" => $kecamatan,
-            "panjang_ruas" => $panjang,
-            "lebar_ruas" => $lebar,
+            "panjang_ruas" => ($type_ruas==3)?$panjang:$panjang_jembatan,
+            "lebar_ruas" => ($type_ruas==3)?$lebar:$lebar_jembatan,
             "jumlah_bentang" => $jumlah_bentang,
             "type_id" => $type,
             "panjang_jenis" => $panjang_jenis,
@@ -224,7 +231,7 @@ class Home extends CI_Controller
         $date = date("ymd");
     	$data = array(
             "type_ruas_id" => $type_ruas,
-            "nama_jembatan" => $nama_jembatan,
+            "nama_jembatan" => !empty($nama_jembatan)?$nama_jembatan:'-',
             "nama_ruas_jalan" => $nama_lokasi,
             "kecamatan_id" => $kecamatan,
             "panjang_ruas" => $panjang,
@@ -238,19 +245,21 @@ class Home extends CI_Controller
         if($type_ruas==3){
 
         	// $where = array("id_lokasi"=>$id);
-            $sql = $this->db->query("select * from list_lokasi where nama_ruas_jalan='".$nama_lokasi."' and kecamatan_id='".$kecamatan_id."'");
+            $sql = $this->db->query("select * from list_lokasi where nama_ruas_jalan='".$nama_lokasi."' and kecamatan_id='".$kecamatan."'");
             if($sql->num_rows()==0){
                 $this->db->insert("list_lokasi", $data);
             }
         
-            $this->db->insert("lokasi_waypoint", $data);
-            $idnya = $this->db->insert_id();
+            // $this->db->insert("lokasi_waypoint", $data);
+            // $idnya = $this->db->insert_id();
         }else{
-            $where = array("id_lokasi"=>$id);
-            $idnya = $id;
-            $this->db->update("lokasi_waypoint", $data, $where);
+            // $where = array("id_lokasi"=>$id);
+            // $idnya = $id;
+            // $this->db->update("lokasi_waypoint", $data, $where);
         }
-        // if($this->db->update("lokasi_waypoint", $data, $where)){
+        $where = array("id_lokasi"=>$id);
+        $idnya = $id;
+        $this->db->update("lokasi_waypoint", $data, $where);
     	if($idnya){
 
             //upload video
@@ -308,20 +317,24 @@ class Home extends CI_Controller
                 }
             endif;
 
-            $cek = $this->db->query("SELECT * FROM list_jenis_permukaan_map where id_lokasi='$id' and id_type='$type'");
-            if($cek->num_rows()==0){
+            if($type_ruas==3){
+                $cek = $this->db->query("SELECT * FROM list_jenis_permukaan_map where id_lokasi='$id' and id_type='$type'");
+                if($cek->num_rows()==0){
 
-                //add jenis permukaan
-                $data_per = array(
-                    "id_lokasi" => $id,
-                    "id_type" => $type,
-                    "panjang" => $panjang_jenis
-                   );
-                $this->db->insert("list_jenis_permukaan_map", $data_per);
-                echo json_encode(array("message" => 'Data Update Successfully, Berhasil Input Jenis Permukaan baru'));
+                    //add jenis permukaan
+                    $data_per = array(
+                        "id_lokasi" => $id,
+                        "id_type" => $type,
+                        "panjang" => $panjang_jenis
+                       );
+                    $this->db->insert("list_jenis_permukaan_map", $data_per);
+                    echo json_encode(array("message" => 'Data Update Successfully, Berhasil Input Jenis Permukaan baru'));
+                }else{
+                    $this->db->query("update list_jenis_permukaan_map set panjang='$panjang_jenis' where id_lokasi='$id' and id_type='$type'");    
+                    echo json_encode(array("message" => 'Data Update Successfully, berhasil update Permukaan'));
+                }
             }else{
-                $this->db->query("update list_jenis_permukaan_map set panjang='$panjang_jenis' where id_lokasi='$id' and id_type='$type'");    
-                echo json_encode(array("message" => 'Data Update Successfully, berhasil update Permukaan'));
+                echo json_encode(array("message" => 'Data Update Successfully'));
             }
         }
 
@@ -400,5 +413,33 @@ class Home extends CI_Controller
             'master_jenis' => $master_jenis
         );
         $this->load->view('excel_jembatan',$data);
+    }
+
+    public function view_jenis_permukaan($id, $id_ruas)
+    {
+        if($id_ruas==4){
+            $get_data = $this->map_model->get_data_jembatan();
+        }else{
+            $get_data = $this->map_model->get_list_jenis_permukaan_byidlokasi($id);
+        }
+        if($get_data->num_rows()==0){
+            echo "Belum Ada Data";
+        }else{
+            $row="<table class='table table-bordered'>";
+            $row.="<tr><th>No</th>
+                    <th>Jenis Permukaan</th>
+                    <th>Panjang (Km)</th></tr>";
+            $no=1;
+            foreach ($get_data->result() as $key => $value) {
+                $row.="<tr>";
+                $row.="<td>".$no."</td>";
+                $row.="<td>".$value->jenis."</td>";
+                $row.="<td>".$value->panjang."</td>";
+                $row.="</tr>";
+                $no++;
+            }
+            $row.="</table>";
+            echo $row;
+        }
     }
 }

@@ -227,7 +227,12 @@ class Map_model extends CI_Model {
     }
 
 
-
+    public function get_list_jenis_permukaan_byidlokasi($id_lokasi){
+        $sql = $this->db->query("SELECT m.jenis, l.panjang from list_jenis_permukaan_map as l
+        JOIN master_jenis_permukaan as m on m.id = l.id_type
+        where l.id_lokasi='$id_lokasi'");
+        return $sql;
+    }
 
 
 }
