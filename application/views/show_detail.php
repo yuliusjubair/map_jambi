@@ -20,12 +20,31 @@
     <div class="col-md-4 shadow">
 
     <h4 class="modal-title alert alert-success" id="exampleModalLabel">Edit Data Location</h4>
-      <form action="<?php echo base_url()?>home/update_data" method="POST" id="form_modal" class="form-horizontal" enctype="multipart/form-data">
+      <form action="<?php echo base_url()?>index.php/home/update_data" method="POST" id="form_modal" class="form-horizontal" enctype="multipart/form-data">
             <input type="hidden" id="modal_id" name="modal_id" value="<?php echo $row->id_lokasi?>"/>
             <input id="waypoint1" name="waypoint1" type="hidden" required readonly value="<?php echo $row->waypoint1?>">
             <input id="waypoint2" name="waypoint2" type="hidden" required readonly value="<?php echo $row->waypoint2?>">
             <input type="hidden" value="0" name="id">
             <div class="form-body">
+              <!--  -->
+                <div class="container">
+                  <div class="row">
+                    <div class="col">
+                      <div class="col-sm-6">
+                        <div class="text-sm font-weight-bold text-success text-uppercase mb-3">
+                          <a href="#" onclick="form_upload_images('<?php echo $row->id_lokasi?>', '<?php echo $row->nama_ruas_jalan?>')" class="btn btn-primary" href="">Upload Images</a>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="col-sm-6">
+                        <div class="text-sm font-weight-bold text-success text-uppercase mb-3">
+                          <a href="#" onclick="form_link_video('<?php echo $row->id_lokasi?>', '<?php echo $row->nama_ruas_jalan?>')" class="btn btn-primary" href="">Link Video</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               <?php if($row->type_ruas_id==4){?>
               <div class="form-group">
                     <label class="control-labelxx col-sm-6">Nama Jembatan<span style="color:red">*</span></label>
@@ -114,7 +133,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="row">
+                <div class="row alert alert-warning">
                   <div class="text-sm font-weight-bold text-success text-uppercase mb-3">
                     <a href="#" onclick="view_jenis_permukaan('<?php echo $row->id_lokasi?>', '<?php echo $row->nama_ruas_jalan?>','<?php echo $row->type_ruas_id?>')" class="link" href="">lihat detail jenis permukaan</a>
                   </div>
@@ -131,6 +150,7 @@
                         <span class="help-block"></span>
                     </div>
                 </div>
+                
                 <?php if($row->type_ruas_id==3){?>
                 <div class="form-group">
                     <center>
@@ -243,7 +263,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><br />
             </div>
             <div class="modal-body form">
-              <div class="table-responsive">
+              <div class="table-responsive upload_images">
                 <form action="#" id="form_detail_jenis" class="form-horizontal">
                   <!--   <table class="table table-bordered">
                       <tr>
@@ -267,14 +287,19 @@
       <script src = "http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.2.3/leaflet.draw.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.2.3/leaflet.draw.css" rel="stylesheet" />
+<link href="//cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.css" rel="stylesheet">
+
+<script src="//cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>  
     <script>
 
       function view_jenis_permukaan(id, $nama, id_ruas) {
         $.ajax({
-            url : "<?php echo site_url('home/view_jenis_permukaan')?>/"+id+"/"+id_ruas,
+            url : "<?php echo site_url('index.php/home/view_jenis_permukaan')?>/"+id+"/"+id_ruas,
             type: "GET",
             dataType: "html",
             success: function(data) {
+              $('.upload_images').html('');
                $('#form_detail_jenis').html('');
                $('#form_detail_jenis').html(data);
             },
@@ -287,10 +312,100 @@
           $('.modal-title').text('View Jenis Permukaan : ' + $nama);
       }
 
+      function form_upload_images(id, nama) {
+        $.ajax({
+            url : "<?php echo site_url('index.php/home/form_upload_images')?>/"+id,
+            type: "GET",
+            dataType: "html",
+            success: function(data) {
+              $('.modal-title').text('Upload Images Ruas Jalan/Jembatan : ' + nama);
+               $('.upload_images').html('');
+               $('.upload_images').html(data);
+            },
+            error: function (jqXHR, textStatus, errorThrown)  {
+                alert('Error get data from ajax'+jqXHR.responseText);
+            }
+        });
+
+          $('#modal_form_popup').modal('show');
+          
+      }
+
+      function hapus_images(id, file){
+      if(confirm('Are you sure Delete this Image?')) {
+        $.ajax({
+            url : "<?php echo site_url('index.php/home/hapus_images')?>/"+id+"/"+file,
+            type: "POST",
+            dataType: "JSON",
+            success: function(data) {
+                if(data.status == 200){
+                  alert(data.message);
+                  refresh_list();
+                }else{
+                  alert(data.message);
+                  return false;
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                 alert(data.message);
+            }
+        });
+      }
+    }
+
+    function form_link_video(id, nama) {
+        $.ajax({
+            url : "<?php echo site_url('index.php/home/form_link_video')?>/"+id,
+            type: "GET",
+            dataType: "html",
+            success: function(data) {
+              $('.modal-title').text('Link Video Ruas Jalan/Jembatan : ' + nama);
+               $('.upload_images').html('');
+               $('.upload_images').html(data);
+            },
+            error: function (jqXHR, textStatus, errorThrown)  {
+                alert('Error get data from ajax'+jqXHR.responseText);
+            }
+        });
+
+          $('#modal_form_popup').modal('show');
+          
+      }
+
+		function hapus_link(id, file){
+      if(confirm('Are you sure Delete this Link?')) {
+        $.ajax({
+            url : "<?php echo site_url('index.php/home/hapus_link')?>/"+id+"/"+file,
+            type: "POST",
+            dataType: "JSON",
+            success: function(data) {
+                if(data.status == 200){
+                  alert(data.message);
+                  refresh_list();
+                }else{
+                  alert(data.message);
+                  return false;
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                 alert(data.message);
+            }
+        });
+      }
+    }
+		<?php 
+			$point1=explode(',',$row->waypoint1);
+			$point1=$point1[0];
+			
+			$point2=explode(',',$row->waypoint2);
+			$point2=str_replace(")"," ",$point2[count($point2)-1]);
+		?>
+		//console.log(<?php echo $point1?>, <?php echo $point2?>);
          // Creating map options
          var mapOptions = {
-            center: [-1.2094908817570897, 103.79153016954439],
-            zoom: 16
+            //center: [-1.2094908817570897, 103.79153016954439],
+			center: [<?php echo "-".$point1?>, <?php echo $point2?>],
+            zoom: 12
          }
          // Creating a map object
          var map = new L.map('map4', mapOptions);
@@ -301,7 +416,7 @@
          
          // Adding layer to the map
          map.addLayer(layer);
-        
+         
          // let string = "LatLng(17.50438, 1.04772),LatLng(17.48686, 1.05775)",
          let string = "<?php echo $row->waypoint2?>",
               splittedArray = string.split("LatLng"),
@@ -320,7 +435,7 @@
           })
           // outputArray = coordArray("<?php echo $row->waypoint1?>");
           var data = outputArray;
-          console.log(data);
+          //console.log(data);
           var latlang = data;
           <?php if($row->type_ruas_id==3){?>
           var polyline = L.polyline(data).addTo(map);
@@ -339,6 +454,10 @@
          /* polyline.on('dblclick', function (e) {
               map.removeLayer(polyline)
           });*/
+		  
+		  polyline.setStyle({
+			color: 'red'
+		});
 
           // Initialise the FeatureGroup to store editable layers
 var editableLayers = new L.FeatureGroup();
@@ -458,7 +577,7 @@ var options = {
           function save() {
             $('#btnSave').text('Saving...');
             $('#btnSave').attr('disabled',true);
-            var url ="<?php echo site_url('home/update_data')?>";
+            var url ="<?php echo site_url('index.php/home/update_data')?>";
             var formData = new FormData($('#form_modal')[0]);
 
             $("#progress-bar").show();

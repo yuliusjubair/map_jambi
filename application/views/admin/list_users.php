@@ -73,7 +73,7 @@ function datatables(){
         "info": true,
         "dom": 'Bfrtip',
         "ajax": {
-        	"url": "<?php echo site_url().'admin/ajax_list/'?>",
+        	"url": "<?php echo site_url().'index.php/admin/ajax_list/'?>",
             "type": "POST"
         },
         "columnDefs": [
@@ -102,7 +102,7 @@ function reset_password(id, fs) {
     }*/
     if(confirm('Apa Anda Yakin Hapus data untuk User '+fs+' ?')) {
         $.ajax({
-            url : "<?php echo site_url('admin/ajax_manageusers_delete')?>/"+id,
+            url : "<?php echo site_url('index.php/admin/ajax_manageusers_delete')?>/"+id,
             type: "POST",
             dataType: "JSON",
             success: function(data) {

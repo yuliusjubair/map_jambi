@@ -49,7 +49,7 @@ class Auth extends CI_Controller {
 	                }else{
 	                    $url_default="/dashmin/index";
 	                }*/
-	                $url_default="/home/index";
+	                $url_default="index.php/home/index";
 	                
 	                if (isset($this->ion_auth->user()->row()->url_default)) {
 	                    $url_default=$this->ion_auth->user()->row()->url_default;
@@ -104,7 +104,7 @@ class Auth extends CI_Controller {
 		$logout = $this->ion_auth->logout(); 
 		
 		$this->session->set_flashdata('message', $this->ion_auth->messages());
-		redirect('auth/login', 'refresh');
+		redirect('index.php/auth/login', 'refresh');
 	}
 
 	//change password

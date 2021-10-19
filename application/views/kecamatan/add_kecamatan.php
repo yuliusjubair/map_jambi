@@ -35,9 +35,9 @@
     var url;
 
     if(save_method == 'add') {
-        url = "<?php echo site_url('kecamatan/ajax_kecamatan_add')?>";
+        url = "<?php echo site_url('index.php/kecamatan/ajax_kecamatan_add')?>";
     } else {
-        url = "<?php echo site_url('kecamatan/ajax_kecamatan_update')?>";
+        url = "<?php echo site_url('index.php/kecamatan/ajax_kecamatan_update')?>";
     }
 
     var formData = new FormData($('#form_modal_popup')[0]);

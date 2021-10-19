@@ -63,11 +63,39 @@ p.remarks, a{
 
 #accordion-1 .content{
   background-color: #FFFFFF;
-  display: none;
+  /*display: none;*/
   padding: 20px 30px;
   color: #333333;
 }
 </style>
+<style type="text/css">
+ #gallery {
+  img {
+    height: 75vw;
+    object-fit: cover;
+    
+    @media (min-width: $bootstrap-sm) {
+      height: 35vw;
+    }
+    
+    @media (min-width: $bootstrap-lg) {
+      height: 18vw;
+    }
+  }
+}
+ 
+.carousel-item {
+  img {
+    height: 60vw;
+    object-fit: cover;
+    
+    @media (min-width: $bootstrap-sm) {
+      height: 350px;
+    }
+  }
+}
+</style>
+
 <body>
     <div class="row">
    <div class="col-md-8">
@@ -85,7 +113,7 @@ p.remarks, a{
               <i class="fas fa-angle-down arrow"></i>
             </div>
             <div class="content">
-              <form class="form-horizontal" method="POST" action="<?php echo base_url()?>home/index">
+              <form class="form-horizontal" method="POST" action="<?php echo base_url()?>index.php/home/index">
               <table class="table">
                 <tr>
                   <td>Kecamatan</td>
@@ -168,7 +196,8 @@ p.remarks, a{
               </div>
             </div>
     <?php endif;?>
-        <div class="card mb-2" style="margin-top:10px;">
+
+        <!-- <div class="card mb-2" style="margin-top:10px;">
             <h5 class="card-header">Video</h5>
             <div class="card-body">
               <div class="small font-italic text-muted mb-4">Klik Marker Map untuk Menampilkan Video</div>
@@ -176,26 +205,59 @@ p.remarks, a{
 
                 <div class="embed-responsive embed-responsive-16by9">
                  
-                  <!-- <iframe width="932" height="524" src="https://www.youtube.com/embed/rS3kGvTZl3I" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
+                  
                 </div>
               </div>
-             <!--  <div class="video2">
-                <div class="embed-responsive embed-responsive-16by9">
-                  <iframe width="932" height="524" src="https://www.youtube.com/embed/a0Fx528FRQY" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                </div>
-              </div> -->
-              <!-- <div class="images"></div> -->
             </div>
-        </div>
+        </div> -->
+
+        <!-- <div id="accordion-1">
+            <div class="head">
+              <h4>Gallery Images</h4>
+              <i class="fas fa-angle-down arrow"></i>
+            </div>
+            <div class="content"><?php //$this->load->view('images')?>
+            </div>
+        </div> -->
         <!--  <div class="card md-2">
-            <h4 class="card-header">Gallery</h4>            
+            <h4 class="card-header">Gallery Images</h4>            
             <div class="card-body">
               <?php //$this->load->view('images')?>
             </div>
         </div> -->
+
+
     </div>
    
 </div>
+
+<div class="modal fade" id="modal_form_popup" role="dialog">
+    <div class="modal-dialog modal-xl" id="gallery">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">View Data</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><br />
+            </div>
+            <div class="modal-body form">
+              <div class="table-responsive upload_images">
+                <form action="#" id="form_detail_jenis" class="form-horizontal">
+                  <!--   <table class="table table-bordered">
+                      <tr>
+                        <th>No</th>
+                        <th>Jenis Permukaan</th>
+                        <th>Panjang (Km)</th>
+                      </tr>
+                    </table> -->
+                </form>
+              </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-md btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 <!-- Button trigger modal -->
 <!-- <button class="btn btn-primary" type="button" data-toggle="modal" onclick="open_modal()">Launch Demo Modal</button> -->
 <link rel="stylesheet" href="https://tombatossals.github.io/angular-leaflet-directive/bower_components/Leaflet.ExtraMarkers/src/leaflet.extra-markers.css">
@@ -220,13 +282,51 @@ p.remarks, a{
     })
 
    function open_dialog(id){
-    	window.location.href="<?php echo base_url()?>home/show_detail/"+id;
+    	window.location.href="<?php echo base_url()?>index.php/home/show_detail/"+id;
     }
+
+    function open_images(id) {
+        $.ajax({
+            url : "<?php echo site_url('index.php/home/view_images')?>/"+id,
+            type: "GET",
+            dataType: "html",
+            success: function(data) {
+              $('.modal-title').text('View Images Ruas Jalan/Jembatan');
+               $('.upload_images').html('');
+               $('.upload_images').html(data);
+            },
+            error: function (jqXHR, textStatus, errorThrown)  {
+                alert('Error get data from ajax'+jqXHR.responseText);
+            }
+        });
+
+          $('#modal_form_popup').modal('show');
+          
+    }
+
+    function open_video(id) {
+        $.ajax({
+            url : "<?php echo site_url('index.php/home/view_video')?>/"+id,
+            type: "GET",
+            dataType: "html",
+            success: function(data) {
+              $('.modal-title').text('View Video Ruas Jalan/Jembatan');
+               $('.upload_images').html('');
+               $('.upload_images').html(data);
+            },
+            error: function (jqXHR, textStatus, errorThrown)  {
+                alert('Error get data from ajax'+jqXHR.responseText);
+            }
+        });
+
+          $('#modal_form_popup').modal('show');
+          
+      }
 
     function open_dialog_hapus(id){
       if(confirm('Are you sure Delete this data?')) {
         $.ajax({
-            url : "<?php echo site_url('home/hapus_data')?>/"+id,
+            url : "<?php echo site_url('index.php/home/hapus_data')?>/"+id,
             type: "POST",
             dataType: "JSON",
             success: function(data) {
@@ -247,9 +347,9 @@ p.remarks, a{
 
     function show_video(link){
       var link_video = "<?php echo base_url()?>video/"+link;
-      $('.video').show();
+      /*$('.video').show();
       $('.embed-responsive').html("");
-      $('.embed-responsive').append('<video id="video" width="1180" height="664" poster="put here your poster url" preload="auto" controls="true"><source src="'+link_video+'" type="video/mp4"></video>');
+      $('.embed-responsive').append('<video id="video" width="1180" height="664" poster="put here your poster url" preload="auto" controls="true"><source src="'+link_video+'" type="video/mp4"></video>');*/
     }
 
         /*var map = L.map('map3').setView([-1.5901393059041389, 103.613788273547], 17);
@@ -288,7 +388,7 @@ p.remarks, a{
              var extractedLTLNG2 = extractedLTLNG.map(parseFloat)
              let tempArray = [extractedLTLNG2[0], extractedLTLNG2[1]];
                outputArray<?php echo $key?>.push(tempArray);
-               let informasi = 'Nama Lokasi : <?php echo $value->nama_ruas_jalan?><br /> Kecamatan yang dilalui : <?php echo $value->nama_kecamatan?><br /> Type : <?php echo $value->nama_ruas?><br /><br /> Jenis Permukaan : <?php echo $value->jenis?><br /> Panjang Ruas : <?php echo $value->panjang_ruas?> km<br /> Lebar Ruas : <?php echo $value->lebar_ruas?> m<br /><br /><a href="#" class="btn btn-success" onclick="open_dialog(<?php echo $value->id_lokasi?>)">Edit atau Tambah Ruas</a> &nbsp; <a href="#" class="btn btn-danger" onclick="open_dialog_hapus(<?php echo $value->id_lokasi?>)">Hapus</a>';
+               let informasi = 'Nama Lokasi : <?php echo $value->nama_ruas_jalan?><br /> Kecamatan yang dilalui : <?php echo $value->nama_kecamatan?><br /> Type : <?php echo $value->nama_ruas?><br /><br /> Jenis Permukaan : <?php echo $value->jenis?><br /> Panjang Ruas : <?php echo $value->panjang_ruas?> km<br /> Lebar Ruas : <?php echo $value->lebar_ruas?> m<br /> <a href="#" class="btn btn-sm btn-danger" onclick="open_images(<?php echo $value->id_lokasi?>)">View Images</a> &nbsp;<a href="#" class="btn btn-sm btn-danger" onclick="open_video(<?php echo $value->id_lokasi?>)">View Video</a><br /><br /><a href="#" class="btn btn-success" onclick="open_dialog(<?php echo $value->id_lokasi?>)">Edit atau Tambah Ruas</a> &nbsp; <a href="#" class="btn btn-danger" onclick="open_dialog_hapus(<?php echo $value->id_lokasi?>)">Hapus</a>';
                 if(no==1){
 
                   <?php if($value->type_ruas_id==4){?>
@@ -310,7 +410,10 @@ p.remarks, a{
                 <?php }else{?>
                   //awal array
                   var a<?php echo $key?> = new L.LatLng(extractedLTLNG2[0], extractedLTLNG2[1]);
-                  var marker_a<?php echo $key?> = new L.Marker(a<?php echo $key?>, {draggable: false}).bindPopup(informasi).addTo(map);
+                  //var marker_a<?php echo $key?> = new L.Marker(a<?php echo $key?>, {draggable: false}).bindPopup(informasi).addTo(map);
+				  var marker_a<?php echo $key?> = new L.Marker(a<?php echo $key?>, {draggable: false}).bindPopup(informasi).addTo(map).on('click', function(e) {
+                            show_video('<?php echo $value->link_video?>');
+                        });
                 <?php } ?>
 
                 }
@@ -321,7 +424,7 @@ p.remarks, a{
                       var b<?php echo $key?> = new L.LatLng(extractedLTLNG2[0], extractedLTLNG2[1]);
                       var marker_b<?php echo $key?> = new L.Marker(b<?php echo $key?>, {draggable: false}).bindPopup(informasi).addTo(map).on('click', function(e) {
                             show_video('<?php echo $value->link_video?>');
-                        });;
+                        });
                   }
                 <?php } ?>
                 // console.log(no);

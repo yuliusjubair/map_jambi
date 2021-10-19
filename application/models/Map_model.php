@@ -73,7 +73,7 @@ class Map_model extends CI_Model {
 
     function get_data_jalan(){
         $this->db->select("a.*, b.nama as nama_kecamatan, c.jenis, c.kode_warna");
-        $this->db->from("list_lokasi as a");
+        $this->db->from("lokasi_waypoint as a");
         $this->db->join('master_kecamatan as b','a.kecamatan_id = b.id','left');
         $this->db->join('master_jenis_permukaan as c','a.type_id = c.id','left');
         $this->db->where('a.type_ruas_id', 3);
@@ -220,7 +220,7 @@ class Map_model extends CI_Model {
     {
         $tgl=date('Y-m-d');
         // $query = $this->db->query("DELETE FROM lokasi_waypoint WHERE id_lokasi = '$id'");
-        $query = $this->db->query("Update lokasi_waypoint set delete_date='$tgl', delete_by='by user' WHERE id_lokasi = '$id'");
+        $query = $this->db->query("Update lokasi_waypoint set delete_date='$tgl', delete_by='by user' WHERE id_lokasi = '$id'");		$query = $this->db->query("Update list_lokasi set delete_date='$tgl', delete_by='by user' WHERE id_lokasi = '$id'");
 
         return TRUE;
 
@@ -234,6 +234,33 @@ class Map_model extends CI_Model {
         return $sql;
     }
 
+    function get_images($id_lokasi){
+        $this->db->select("a.file_path, a.id_lokasi, a.id");
+        $this->db->from("tbl_img_lokasi as a");
+        $this->db->join('lokasi_waypoint as b','a.id_lokasi = b.id_lokasi','left');
+        $this->db->where('a.id_lokasi', $id_lokasi);
+        $this->db->order_by('a.id desc');
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+    function deleteImages_byId($id){
+        return $this->db->query("DELETE FROM tbl_img_lokasi WHERE id=?", $id);
+    }
+
+    function get_link($id_lokasi){
+        $this->db->select("a.link, a.id_lokasi, a.id");
+        $this->db->from("tbl_linkvideo_lokasi as a");
+        $this->db->join('lokasi_waypoint as b','a.id_lokasi = b.id_lokasi','left');
+        $this->db->where('a.id_lokasi', $id_lokasi);
+        $this->db->order_by('a.id desc');
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+    function deleteLink_byId($id){
+        return $this->db->query("DELETE FROM tbl_linkvideo_lokasi WHERE id=?", $id);
+    }
 
 }
 

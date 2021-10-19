@@ -53,9 +53,9 @@
     var url;
 
     if(save_method == 'add') {
-        url = "<?php echo site_url('admin/ajax_manageusers_add')?>";
+        url = "<?php echo site_url('index.php/admin/ajax_manageusers_add')?>";
     } else {
-        url = "<?php echo site_url('admin/ajax_manageusers_update')?>";
+        url = "<?php echo site_url('index.php/admin/ajax_manageusers_update')?>";
     }
 
     var formData = new FormData($('#form_modal_popup')[0]);

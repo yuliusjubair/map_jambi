@@ -200,13 +200,17 @@
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Valerie Luna</span>
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small">
+                <?php if ($this->ion_auth->logged_in()){
+                  echo $this->session->userdata('username');
+                }else{ echo "Guest";} ?>
+                </span>
                 <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                 <?php if ($this->ion_auth->logged_in()){?>
-                <a class="dropdown-item" href="<?php echo base_url()?>admin/users">
+                <a class="dropdown-item" href="<?php echo base_url()?>index.php/admin/users">
                   <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                   Add Users
                 </a>
@@ -219,7 +223,7 @@
                   Activity Log
                 </a> -->
                 <div class="dropdown-divider"></div>
-                <a href="<?php echo base_url(); ?>auth/logout" class="dropdown-item">
+                <a href="<?php echo base_url(); ?>index.php/auth/logout" class="dropdown-item">
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                   Logout
                 </a>
@@ -301,21 +305,21 @@
 </html>
 <script type="text/javascript">
   function add_location(){
-      window.location.href="<?php echo base_url()?>home/draw/";
+      window.location.href="<?php echo base_url()?>index.php/home/draw/";
   }
   function kembali(){
-      window.location.href="<?php echo base_url()?>home/index/";
+      window.location.href="<?php echo base_url()?>index.php/home/index/";
   }
   function view_table(){
-      window.location.href="<?php echo base_url()?>home/show_table/";
+      window.location.href="<?php echo base_url()?>index.php/home/show_table/";
     }
   function view_jembatan(){
-      window.location.href="<?php echo base_url()?>home/show_jembatan/";
+      window.location.href="<?php echo base_url()?>index.php/home/show_jembatan/";
     }  
   function view_map(){
-      window.location.href="<?php echo base_url()?>home/index/";
+      window.location.href="<?php echo base_url()?>index.php/home/index/";
     }
   function view_kecamatan(){
-      window.location.href="<?php echo base_url()?>kecamatan/index/";
+      window.location.href="<?php echo base_url()?>index.php/kecamatan/index/";
   }  
 </script>

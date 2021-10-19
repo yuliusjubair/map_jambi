@@ -20,7 +20,7 @@
     <div class="col-md-4 shadow" style="padding:5px; border-radius:5px;">
 
     <h5 class="modal-title" id="exampleModalLabel">Add Data Location</h5>
-      <form action="<?php echo base_url()?>home/add_data" method="POST" id="form_modal" class="form-horizontal">
+      <form action="<?php echo base_url()?>index.php/home/add_data" method="POST" id="form_modal" class="form-horizontal">
             <input type="hidden" id="modal_id" name="modal_id" value="<?php //echo $row->id_lokasi?>"/>
             <input id="waypoint1" name="waypoint1" type="hidden" required readonly value="<?php //echo $row->waypoint1?>">
             <input id="waypoint2" name="waypoint2" type="hidden" required readonly value="<?php //echo $row->waypoint2?>">

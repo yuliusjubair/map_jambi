@@ -206,7 +206,7 @@ class Home extends CI_Controller
         }
         $this->session->set_flashdata('response',"Data Location Insert Successfully");
         //redirect('home/show_detail/'.$id);
-        redirect('home/index/');
+        redirect('index.php/home/index/');
     }
 
     function update_data(){
@@ -429,7 +429,7 @@ class Home extends CI_Controller
             $row.="<tr><th>No</th>
                     <th>Jenis Permukaan</th>
                     <th>Panjang (Km)</th></tr>";
-            $no=1;
+            $no=0;
             foreach ($get_data->result() as $key => $value) {
                 $row.="<tr>";
                 $row.="<td>".$no."</td>";
@@ -441,5 +441,168 @@ class Home extends CI_Controller
             $row.="</table>";
             echo $row;
         }
+    }
+
+    public function form_upload_images($id){
+        $data['id'] = $id;
+        $this->load->view('images/index',$data);
+    }
+
+    public function list_images($id){
+        $list = $this->map_model->get_images($id);
+        $data = array();
+        $no =0;
+        foreach ($list as $field) {
+            $no++;
+            $row = array();
+            $row[] = $no;
+            $row[] = "<img src='".base_url()."uploads/image_lokasi3/".$field->file_path."' width='30%'>";
+            $row[] = '  <a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Delete"
+                        onclick=hapus_images("'.$field->id.'","'.$field->file_path.'")>
+                        <i class="ace-icon fa fa-refresh"></i>Hapus</a>';
+            $data[] = $row;
+        }
+        
+        $output = array(
+            "data" => $data,
+        );
+        echo json_encode($output);
+    }
+
+    public function ajax_insert_images(){
+        $id_lokasi = $this->input->post('id_lokasi');
+        if ($_FILES['images']['tmp_name']!='') {
+                $file_name1 =$_FILES['images']['name'];
+                $file_ext1 =  pathinfo($file_name1, PATHINFO_EXTENSION);
+                $file_tmp1= $_FILES['images']['tmp_name'];
+                $type1 = pathinfo($file_tmp1, PATHINFO_EXTENSION);
+                $data1 = file_get_contents($file_tmp1);
+                //$file = 'data:image/'.$type1.';base64,'.base64_encode($data1);
+                $file = str_replace(" ", "_", $file_name1);
+            }else{
+                $file = NULL;
+            }
+            $this->_do_upload($file);
+            $username = $this->session->userdata('username');
+
+            $data = array(
+                "id_lokasi"=>$id_lokasi,
+                "file_path" => $file,
+                "created_by" => $username,
+            );
+            $this->db->insert('tbl_img_lokasi', $data);
+          
+            $data = array('status'=>200,'message'=>'success');
+            echo json_encode($data);
+    }
+
+    private function _do_upload($file) {
+        set_time_limit(0);
+        ini_set('max_execution_time', 0);
+        ini_set('memory_limit', '-1');
+        ini_set('max_input_time', 3600);
+        
+        // if(!is_dir("uploads")) {
+        //     mkdir("uploads");
+        // }
+        
+        $config['upload_path']          = 'uploads/image_lokasi3/';
+        // if(!is_file($config['upload_path']))
+        // {
+        //     @mkdir($config['upload_path']);
+        //     chmod($config['upload_path'], 777); 
+        //     ## this should change the permissions
+        // }
+        $config['allowed_types']        = 'jpg|jpeg|png|JPG|JPEG|PNG|GIF|gif';
+        $config['max_size']             = 2*1024; //set max size allowed in Kilobyte
+        $config['file_name']            = $file; //just milisecond timestamp fot unique name
+        
+        $this->load->library('upload', $config);
+        $this->upload->initialize($config);
+        if(!$this->upload->do_upload('images')) {
+          
+            $data['inputerror'][] = 'images';
+            $data['error_string'][] = 'Upload error: '.$this->upload->display_errors('',''); //show ajax error
+            $data['status'] = FALSE;
+            echo json_encode($data);
+            exit();
+        }
+        return $this->upload->data('file_name');
+    }
+
+    public function hapus_images($id, $filename) {
+        $delete1 =  $this->map_model->deleteImages_byId($id);
+        if($delete1){
+            @unlink("uploads/image_lokasi3/".$filename);
+            echo json_encode(array("status" => 200, "message" => 'Berhasil Delete Image'));
+        }else{
+            echo json_encode(array("status" => NULL, "message" => 'Gagal Delete Data'));
+        }
+    }
+
+    public function form_link_video($id){
+        $data['id'] = $id;
+        $this->load->view('link/index',$data);
+    }
+
+    public function list_link_video($id){
+        $list = $this->map_model->get_link($id);
+        $data = array();
+        $no =0;
+        foreach ($list as $field) {
+            $l = explode(" ", $field->link);
+            $lv = $l[3];
+            $no++;
+            $row = array();
+            $row[] = $no;
+            $row[] = $lv;
+            $row[] = '  <a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Delete"
+                        onclick=hapus_link("'.$field->id.'","'.$lv.'")>
+                        <i class="ace-icon fa fa-refresh"></i>Hapus</a>';
+            $data[] = $row;
+        }
+        
+        $output = array(
+            "data" => $data,
+        );
+        echo json_encode($output);
+    }
+
+    public function ajax_insert_link(){
+        $id_lokasi = $this->input->post('id_lokasi');
+        $link = $this->input->post('link');
+    
+        $username = $this->session->userdata('username');
+
+        $data = array(
+            "id_lokasi"=>$id_lokasi,
+            "link" => $link,
+            "created_by" => $username,
+        );
+        $this->db->insert('tbl_linkvideo_lokasi', $data);
+      
+        $data = array('status'=>200,'message'=>'success');
+        echo json_encode($data);
+    }
+
+    public function hapus_link($id, $filename) {
+        $delete1 =  $this->map_model->deleteLink_byId($id);
+        if($delete1){
+            echo json_encode(array("status" => 200, "message" => 'Berhasil Delete Link Video'));
+        }else{
+            echo json_encode(array("status" => NULL, "message" => 'Gagal Delete Data'));
+        }
+    }
+
+    public function view_images($id){
+        $data['id'] = $id;
+        $data['list'] = $this->map_model->get_images($id);
+        $this->load->view('images/view',$data);
+    }
+
+    public function view_video($id){
+        $data['id'] = $id;
+        $data['list'] = $this->map_model->get_link($id);
+        $this->load->view('images/video',$data);
     }
 }

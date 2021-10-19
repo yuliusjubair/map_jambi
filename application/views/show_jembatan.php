@@ -106,11 +106,11 @@
         var data = table.row( this ).data();
         // alert( 'You clicked on '+data[1]+'\'s row' );
         alert( 'View Data On Map ' );
-        window.location.href="<?php echo site_url('home/show_detail')?>/"+data[1];
+        window.location.href="<?php echo site_url('index.php/home/show_detail')?>/"+data[1];
     });
 
       function download_excel(){
-        var myurl='<?php echo base_url().'home/excel_jembatan'; ?>';
+        var myurl='<?php echo base_url().'index.php/home/excel_jembatan'; ?>';
         window.location = myurl;
     }
     </script>

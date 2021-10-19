@@ -128,11 +128,11 @@
       $('#table tbody').on('click', 'tr', function () {
         var data = table.row( this ).data();
         alert( 'View Data On Map ' );
-        window.location.href="<?php echo site_url('home/show_detail')?>/"+data[1];
+        window.location.href="<?php echo site_url('index.php/home/show_detail')?>/"+data[1];
     });
 
     function download_excel(){
-        var myurl='<?php echo base_url().'home/excel_ruas_jalan'; ?>';
+        var myurl='<?php echo base_url().'index.php/home/excel_ruas_jalan'; ?>';
         window.location = myurl;
     }
     </script>

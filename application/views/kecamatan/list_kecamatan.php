@@ -57,7 +57,7 @@ function edit(id) {
     save_method = 'update';
     $('#form_modal_popup')[0].reset();
     $.ajax({
-        url : "<?php echo site_url('kecamatan/ajax_edit')?>/"+id,
+        url : "<?php echo site_url('index.php/kecamatan/ajax_edit')?>/"+id,
         type: "GET",
         dataType: "JSON",
         success: function(data) {
@@ -92,7 +92,7 @@ function datatables(){
         "info": true,
         "dom": 'Bfrtip',
         "ajax": {
-        	"url": "<?php echo site_url().'kecamatan/ajax_list/'?>",
+        	"url": "<?php echo site_url().'index.php/kecamatan/ajax_list/'?>",
             "type": "POST"
         },
         "columnDefs": [
@@ -121,7 +121,7 @@ function hapus(id, fs) {
     }*/
     if(confirm('Apa Anda Yakin Hapus data untuk Kecamatan '+fs+' ?')) {
         $.ajax({
-            url : "<?php echo site_url('admin/ajax_kecamatan_delete')?>/"+id,
+            url : "<?php echo site_url('index.php/admin/ajax_kecamatan_delete')?>/"+id,
             type: "POST",
             dataType: "JSON",
             success: function(data) {
