@@ -62,7 +62,7 @@
                             echo "<td>&nbsp;</td>";
                           }
                         }?>
-                        <?php $sql_type = $this->db->query("SELECT persen, km from list_kondisi_map where id_lokasi='".$r->id_lokasi."'");
+                        <?php $sql_type = $this->db->query("SELECT persen, km from list_kondisi_map where id_lokasi='".$r->id_lokasi."'order by id desc ");
                         if($sql_type->num_rows()>0){
                         foreach ($sql_type->result() as $key => $value) {
                             echo "<td>".$value->persen."</td>";

@@ -75,10 +75,10 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost',
+	'hostname' => '172.26.0.2',
 	'username' => 'root',
-	'password' => '',
-	'database' => 'gis_db',
+	'password' => '123456',
+	'database' => 'binamarga_map',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,

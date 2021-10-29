@@ -18,41 +18,23 @@
         </div>
     </div>
     <div class="col-md-4 shadow">
-  <form action="<?php echo base_url()?>index.php/home/update_data" method="POST" id="form_modal" class="form-horizontal" enctype="multipart/form-data">
+
+      <form action="<?php echo base_url()?>index.php/home/update_data" method="POST" id="form_modal" class="form-horizontal" enctype="multipart/form-data">
             <input type="hidden" id="modal_id" name="modal_id" value="<?php echo $row->id_lokasi?>"/>
             <input id="waypoint1" name="waypoint1" type="hidden" required readonly value="<?php echo $row->waypoint1?>">
             <input id="waypoint2" name="waypoint2" type="hidden" required readonly value="<?php echo $row->waypoint2?>">
             <input type="hidden" value="0" name="id">
             <div class="form-body">
-              <div class="card mb-2" style="margin-top:10px;">
+            <div class="card mb-2" style="margin-top:10px;">
               <div class="card-header">
-                <h4><center>Edit Data Location</center></h4>
+                <h4><center>Tambah Kondisi Ruas</center></h4>
               </div>
                 <div class="card-body">
-              <!--  -->
-                <div class="container">
-                  <div class="row">
-                    <div class="col">
-                      <div class="col-sm-6">
-                        <div class="text-sm font-weight-bold text-success text-uppercase mb-3">
-                          <a href="#" onclick="form_upload_images('<?php echo $row->id_lokasi?>', '<?php echo $row->nama_ruas_jalan?>')" class="btn btn-primary" href="">Upload Images</a>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col">
-                      <div class="col-sm-6">
-                        <div class="text-sm font-weight-bold text-success text-uppercase mb-3">
-                          <a href="#" onclick="form_link_video('<?php echo $row->id_lokasi?>', '<?php echo $row->nama_ruas_jalan?>')" class="btn btn-primary" href="">Link Video</a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              <?php if($row->type_ruas_id==4){?>
+             <?php if($row->type_ruas_id==4){?>
               <div class="form-group">
                     <label class="control-labelxx col-sm-6">Nama Jembatan<span style="color:red">*</span></label>
                     <div class="col-sm-12">
-                        <input id="nama_jembatan" name="nama_jembatan" placeholder="nama jembatan" class="form-control" type="text" required value="<?php echo $row->nama_jembatan?>">
+                        <input id="nama_jembatan" name="nama_jembatan" placeholder="nama jembatan" class="form-control" type="text" required value="<?php echo $row->nama_jembatan?>" readonly>
                         <span class="help-block"></span>
                     </div>
                 </div>
@@ -60,14 +42,14 @@
                 <div class="form-group">
                     <label class="control-labelxx col-sm-6">Nama Lokasi<span style="color:red">*</span></label>
                     <div class="col-sm-12">
-                        <input id="nama_lokasi" name="nama_lokasi" placeholder="nama_lokasi" class="form-control" type="text" required value="<?php echo $row->nama_ruas_jalan?>">
+                        <input id="nama_lokasi" name="nama_lokasi" placeholder="nama_lokasi" class="form-control" type="text" required value="<?php echo $row->nama_ruas_jalan?>" readonly>
                         <span class="help-block"></span>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-labelxx col-sm-6">Kecamatan<span style="color:red">*</span></label>
                     <div class="col-sm-12">
-                        <select name="kecamatan" class="form-control">
+                        <select name="kecamatan" class="form-control" readonly>
                            <?php foreach($master_kecamatan as $kecamatan):
                             if($kecamatan->id==$row->kecamatan_id){
                               $sel="selected";
@@ -87,7 +69,7 @@
                       <div class="form-group">
                           <label class="control-labelxx col-sm-6">Panjang Ruas (Km)<span style="color:red">*</span></label>
                           <div class="col-sm-6">
-                              <input id="panjang" name="panjang" placeholder="Panjang" class="form-control" type="text" required value="<?php echo $row->panjang_ruas?>">
+                              <input id="panjang" name="panjang" placeholder="Panjang" class="form-control" type="text" required value="<?php echo $row->panjang_ruas?>" readonly>
                               <span class="help-block"></span>
                           </div>
                       </div>
@@ -96,7 +78,7 @@
                       <div class="form-group">
                           <label class="control-labelxx col-sm-6">Lebar Ruas (M)<span style="color:red">*</span></label>
                           <div class="col-sm-6">
-                              <input id="lebar" name="lebar" placeholder="Lebar" class="form-control" type="text" required value="<?php echo $row->lebar_ruas?>">
+                              <input id="lebar" name="lebar" placeholder="Lebar" class="form-control" type="text" required value="<?php echo $row->lebar_ruas?>"readonly>
                               <span class="help-block"></span>
                           </div>
                       </div>
@@ -111,7 +93,7 @@
                       <div class="form-group">
                         <label class="control-labelxx col-sm-6">Jenis Permukaan<span style="color:red">*</span></label>
                         <div class="col-sm-6">
-                            <select name="type" class="form-control">
+                            <select name="type" class="form-control"readonly>
                                <?php foreach($master_jenis as $type):
                                 if($type->id==$row->type_id){
                                   $sel="selected";
@@ -130,112 +112,50 @@
                     <div class="form-group">
                         <label class="control-labelxx col-sm-6">Panjang Jenis Permukaan (Km)<span style="color:red">*</span></label>
                         <div class="col-sm-6">
-                            <input id="panjang_jenis" name="panjang_jenis" placeholder="Panjang Jenis Permukaan" class="form-control" type="text" required value="<?php echo $row->panjang_jenis?>">
+                            <input id="panjang_jenis" name="panjang_jenis" placeholder="Panjang Jenis Permukaan" class="form-control" type="text" required value="<?php echo $row->panjang_jenis?>"readonly>
                             <span class="help-block"></span>
                         </div>
                     </div>
                   </div>
                 </div>
-                <div class="row alert alert-warning">
-                  <div class="text-sm font-weight-bold text-success text-uppercase mb-3">
-                    <a href="#" onclick="view_jenis_permukaan('<?php echo $row->id_lokasi?>', '<?php echo $row->nama_ruas_jalan?>','<?php echo $row->type_ruas_id?>')" class="link" href="">lihat detail jenis permukaan</a>
-                  </div>
-                </div>
+             </div>
               <?php } ?>
-</div>
-</div>
                 <div class="form-group">
-                    <label class="control-labelxx col-sm-6">Upload Video</label>
+                    <label class="control-labelxx col-sm-6">Kondisi Ruas<span style="color:red">*</span></label>
                     <div class="col-sm-12">
-                        <input id="video" name="video" placeholder="Link Video" class="form-control" type="file">
-                        <label class="control-labelxx col-md-12" id="modal_p_file_txt" name="modal_p_file_txt">
-                          <?php echo $row->link_video?>
-                        </label>
+                        <select name="kondisi" class="form-control">
+                           <?php foreach($master_kondisi as $r):?>
+                            <option <?php echo $sel?> value="<?php echo $r->id?>"><?php echo $r->nama?></option>
+                           <?php endforeach;?>
+                         </select>
                         <span class="help-block"></span>
                     </div>
                 </div>
-                
-                <?php if($row->type_ruas_id==3){?>
                 <div class="form-group">
                     <center>
-                      <label class="control-labelxx col-sm-12 alert alert-success">Panjang Tiap Kondisi<span style="color:red">*</span></label>
+                      <label class="control-labelxx col-sm-12 alert alert-success">Data Kondisi yang sudah diinput<span style="color:red">*</span></label>
                     </center>
                     <div class="col-sm-12">
                       <div class="table-responsive">
                         <table class="table table-bordered">
                           <tr>
                             <th>Kondisi</th>
-                            <th>%</th>
-                            <th>Km</th>
+                            <th>Waypoint</th>
                           </tr>
-                          <?php foreach($master_kondisi as $rowx):?>
+                          <?php foreach($list_kondisi as $rowx):?>
                           <tr>
-                            <td nowrap><?php echo $rowx->nama?>
-                              <input type="hidden" name="kondisi[]" value="<?php echo $rowx->id?>">
-                            </td>
-                            <td><input type="text" name="persen[]" value="<?php echo $rowx->persen?>" size="10"></td>
-                            <td><input type="text" name="km[]" value="<?php echo $rowx->km?>" size="10"></td>
+                            <td><?php echo $rowx->nama?></td>
+                            <td><?php echo $rowx->waypoint?></td>
                           </tr>
                         <?php endforeach;?>
                         </table>
                       </div>
                     </div>
                 </div>
-              <?php }else{?>
-                <div class="form-group">
-                      <center>
-                        <label class="control-labelxx col-sm-12 alert alert-success">Tipe/Kondisi<span style="color:red">*</span></label>
-                      </center>
-                      <div class="col-sm-12">
-                        <div class="table-responsive">
-                          <table class="table table-bordered">
-                            <tr>
-                              <th>Kondisi</th>
-                              <th>Tipe</th>
-                              <th>Kondisi</th>
-                            </tr>
-                            <?php foreach($master_type_jembatan as $rowx):?>
-                            <tr>
-                              <td nowrap><?php echo $rowx->nama?>
-                                <input type="hidden" name="kondisi_jembatan[]" value="<?php echo $rowx->id?>">
-                              </td>
-                              <td>
-                                
-                                <select name="tipe_detail[]">
-                                  <option value=""></option>
-                                  <?php foreach($master_type_jembatan_detail as $ty):
-                                    if($rowx->id_type==$ty->id){
-                                      $sel="selected";
-                                    }else{
-                                      $sel="";
-                                    }
-                                    ?>
-                                    <option <?php echo $sel?> value="<?php echo $ty->id?>"><?php echo $ty->nama?></option>
-                                  <?php endforeach;?>
-                                </select>
-                              </td>
-                              <td><select name="kondisi_detail[]">
-                                <option value=""></option>
-                                  <?php foreach($master_kondisi_jembatan as $ty):
-                                    if($rowx->id_kondisi_detail==$ty->id){
-                                      $sel="selected";
-                                    }else{
-                                      $sel="";
-                                    }
-                                    ?>
-                                    <option <?php echo $sel?> value="<?php echo $ty->id?>"><?php echo $ty->nama?></option>
-                                  <?php endforeach;?>
-                                </select></td>
-                            </tr>
-                          <?php endforeach;?>
-                          </table>
-                        </div>
-                      </div>
-                  </div>
-              <?php } ?>
+              
                <div class="modal-footer">
                 <input id="modal_perimeter_list" name="modal_perimeter_list"  class="form-control" type="hidden" value="<?php echo $row->waypoint1?>">
-              <input id="waypoint3" name="waypoint3"  class="form-control" type="hidden" value="<?php echo $row->waypoint2?>">
+              <input id="waypoint3" name="waypoint3"  class="form-control" type="hidden" value="<?php //echo $row->waypoint2?>">
               <input id="type_ruas" name="type_ruas"  class="form-control" type="hidden" value="<?php echo $row->type_ruas_id?>">
 
               <div id="progress-bar" style="display:none;">
@@ -248,6 +168,9 @@
                   <button type="button" class="btn btn-md btn-primary" id="btnSave" onclick="save()">Save Changes</button>
                   <button type="button" class="btn btn-md btn-danger" data-dismiss="modal" onclick="kembali()">Back Dashboard</button>
               </div>
+            </div>
+          </div>
+        </div>
               <?php if($this->session->flashdata('response')):?>
               <div class="alert alert-success"> 
                 <?php echo $this->session->flashdata('response');?>
@@ -316,100 +239,20 @@
           $('.modal-title').text('View Jenis Permukaan : ' + $nama);
       }
 
-      function form_upload_images(id, nama) {
-        $.ajax({
-            url : "<?php echo site_url('index.php/home/form_upload_images')?>/"+id,
-            type: "GET",
-            dataType: "html",
-            success: function(data) {
-              $('.modal-title').text('Upload Images Ruas Jalan/Jembatan : ' + nama);
-               $('.upload_images').html('');
-               $('.upload_images').html(data);
-            },
-            error: function (jqXHR, textStatus, errorThrown)  {
-                alert('Error get data from ajax'+jqXHR.responseText);
-            }
-        });
-
-          $('#modal_form_popup').modal('show');
-          
-      }
-
-      function hapus_images(id, file){
-      if(confirm('Are you sure Delete this Image?')) {
-        $.ajax({
-            url : "<?php echo site_url('index.php/home/hapus_images')?>/"+id+"/"+file,
-            type: "POST",
-            dataType: "JSON",
-            success: function(data) {
-                if(data.status == 200){
-                  alert(data.message);
-                  refresh_list();
-                }else{
-                  alert(data.message);
-                  return false;
-                }
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                 alert(data.message);
-            }
-        });
-      }
-    }
-
-    function form_link_video(id, nama) {
-        $.ajax({
-            url : "<?php echo site_url('index.php/home/form_link_video')?>/"+id,
-            type: "GET",
-            dataType: "html",
-            success: function(data) {
-              $('.modal-title').text('Link Video Ruas Jalan/Jembatan : ' + nama);
-               $('.upload_images').html('');
-               $('.upload_images').html(data);
-            },
-            error: function (jqXHR, textStatus, errorThrown)  {
-                alert('Error get data from ajax'+jqXHR.responseText);
-            }
-        });
-
-          $('#modal_form_popup').modal('show');
-          
-      }
-
-		function hapus_link(id, file){
-      if(confirm('Are you sure Delete this Link?')) {
-        $.ajax({
-            url : "<?php echo site_url('index.php/home/hapus_link')?>/"+id+"/"+file,
-            type: "POST",
-            dataType: "JSON",
-            success: function(data) {
-                if(data.status == 200){
-                  alert(data.message);
-                  refresh_list();
-                }else{
-                  alert(data.message);
-                  return false;
-                }
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                 alert(data.message);
-            }
-        });
-      }
-    }
+      
 		<?php 
-			$point1=explode(',',$row->waypoint1);
+			$point1=explode(',',$all_lokasi[0]->waypoint1);
 			$point1=$point1[0];
 			
-			$point2=explode(',',$row->waypoint2);
+			$point2=explode(',',$all_lokasi[0]->waypoint1);
 			$point2=str_replace(")"," ",$point2[count($point2)-1]);
 		?>
 		//console.log(<?php echo $point1?>, <?php echo $point2?>);
          // Creating map options
          var mapOptions = {
             //center: [-1.2094908817570897, 103.79153016954439],
-			center: [<?php echo "-".$point1?>, <?php echo $point2?>],
-            zoom: 12
+			     center: [<?php echo "-".$point1?>, <?php echo $point2?>],
+            zoom: 14
          }
          // Creating a map object
          var map = new L.map('map4', mapOptions);
@@ -420,34 +263,77 @@
          
          // Adding layer to the map
          map.addLayer(layer);
-         
-         // let string = "LatLng(17.50438, 1.04772),LatLng(17.48686, 1.05775)",
-         let string = "<?php echo $row->waypoint2?>",
-              splittedArray = string.split("LatLng"),
-              outputArray = [];
+         <?php foreach ($all_lokasi as $key => $value) { ?>
+          let string<?php echo $key?> = "<?php echo $value->waypoint?>",
+              splittedArray<?php echo $key?> = string<?php echo $key?>.split("LatLng"),
+              outputArray<?php echo $key?> = [];
            
-          splittedArray.forEach(o => {
+          var no=1;
+          splittedArray<?php echo $key?>.forEach(o => {
             if(o){
+             
              let extractedLTLNG =  o.match(/\(([^)]+)\)/)[1].split(",");
              var extractedLTLNG2 = extractedLTLNG.map(parseFloat)
-             
              let tempArray = [extractedLTLNG2[0], extractedLTLNG2[1]];
-               outputArray.push(tempArray);
+               outputArray<?php echo $key?>.push(tempArray);
+               let informasi = '<b>Nama Lokasi :</b> ';
+                if(no==1){
+
+                  <?php if($value->type_ruas_id==4){?>
+                  var LeafIcon = L.Icon.extend({
+                    options: {
+                      shadowUrl: '<?php echo base_url()?>assets/img/bridge.svg',
+                      iconSize:     [38, 95],
+                      shadowSize:   [0, 0],
+                      iconAnchor:   [12, 64],
+                      shadowAnchor: [4, 59],
+                      popupAnchor:  [-3, -76]
+                    }
+                  });
+
+                  var greenIcon = new LeafIcon({iconUrl: '<?php echo base_url()?>assets/img/bridge.svg'});
+                  //awal array
+                  // var a<?php echo $key?> = new L.LatLng(extractedLTLNG2[0], extractedLTLNG2[1]);
+                  // var marker_a<?php echo $key?> = new L.Marker(a<?php echo $key?>, {icon: greenIcon}, {draggable: false}).bindPopup(informasi).addTo(map);
+                <?php }else{?>
+                  //awal array
+                  // var a<?php echo $key?> = new L.LatLng(extractedLTLNG2[0], extractedLTLNG2[1]);
+                  // var marker_a<?php echo $key?> = new L.Marker(a<?php echo $key?>, {draggable: false}).bindPopup(informasi).addTo(map);
+                  // var marker_a<?php echo $key?> = new L.Marker(a<?php echo $key?>, {draggable: false}).bindPopup(informasi).addTo(map).on('click', function(e) {
+                  //           show_video('<?php //echo $value->link_video?>');
+                  //       });
+                <?php } ?>
+
+                }
+                  //end array
+                  <?php if($value->type_ruas_id==3){?>
+                  if((no + 1) == (splittedArray<?php echo $key?>.length)){
+                      // console.log("Last iteration with item : " + extractedLTLNG2[0]);
+                      var b<?php echo $key?> = new L.LatLng(extractedLTLNG2[0], extractedLTLNG2[1]);
+                      // var marker_b<?php echo $key?> = new L.Marker(b<?php echo $key?>, {draggable: false}).bindPopup(informasi).addTo(map).on('click', function(e) {
+                            //show_video('<?php //echo $value->link_video?>');
+                        // });
+                  }
+                <?php } ?>
+                // console.log(no);
+                no++;
             }else{
              return;
             }
           })
-          // outputArray = coordArray("<?php echo $row->waypoint1?>");
-          var data = outputArray;
+          
+          var data<?php echo $key?> = outputArray<?php echo $key?>;
           //console.log(data);
-          var latlang = data;
-          <?php if($row->type_ruas_id==3){?>
-          var polyline = L.polyline(data).addTo(map);
-        <?php }else{?>
-          var a = new L.LatLng(<?php echo $row->waypoint1?>);
-    
-          var marker_a = new L.Marker(a, {draggable: false}).addTo(map);
-        <?php } ?>
+          // var latlang = data;
+         
+          // var polyline = L.polyline(data<?php echo $key?>).addTo(map);
+          var polyline = L.polyline(data<?php echo $key?>, {
+                    color: '<?php echo $value->kode_warna?>',
+                    weight: 5,
+                    opacity: 1,
+                    smoothFactor: 10
+             }).addTo(map);
+          <?php } ?>
            /*var st_line = L.polyline(pointList, {
                     color: 'red',
                     weight: 3,
@@ -581,7 +467,7 @@ var options = {
           function save() {
             $('#btnSave').text('Saving...');
             $('#btnSave').attr('disabled',true);
-            var url ="<?php echo site_url('index.php/home/update_data')?>";
+            var url ="<?php echo site_url('index.php/home/insert_data_kondisi')?>";
             var formData = new FormData($('#form_modal')[0]);
 
             $("#progress-bar").show();
@@ -598,7 +484,7 @@ var options = {
                     $('input[type=file]').val('');
                     $("#progress-bar").hide();
                     $("#form_div").show();
-                  kembali();
+                  window.location.reload();
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     $('#btnSave').text('Save');

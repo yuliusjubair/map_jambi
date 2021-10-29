@@ -166,6 +166,23 @@ p.remarks, a{
                      </select>
                   </td>
                 </tr>
+                  <tr>
+                  <td>Kondisi Jalan</td>
+                  <td>
+                    <select name="kondisi" class="form-control">
+                      <option value="">-Tampilkan Semua-</option>
+                       <?php foreach($list_kondisi as $type):
+                        if($type->id==$kondisi){
+                              $sel = "selected";
+                            }else{
+                              $sel="";
+                            }
+                        ?>
+                        <option <?php echo $sel?> value="<?php echo $type->id?>"><?php echo $type->nama?></option>
+                       <?php endforeach;?>
+                     </select>
+                  </td>
+                </tr>
                 <tr>
                   <td colspan="2" class="text-right"><button type="submit" class="btn btn-sm btn-success"><i class="fas fa-search"></i> Cari</button></td>
                 </tr>
@@ -176,7 +193,7 @@ p.remarks, a{
         </div>
         <?php if($posting==true):?>
        
-            <div class="card mb-2" style="margin-top:10px;">
+           <!--  <div class="card mb-2" style="margin-top:10px;">
               <div class="card-header">
                 <h4>Hasil Pencarian</h4>
               </div>
@@ -186,15 +203,17 @@ p.remarks, a{
                     $nama_kecamatan = (!empty($kecamatan_id))?$value->nama_kecamatan:'';
                     $nama_ruas = (!empty($type_ruas_id))?$value->nama_ruas:'';
                     $jenis =  (!empty($jenis))?$value->jenis:'';
+                    $kondisi =  (!empty($kondisi))?$value->kondisi:'';
                   }
                 ?>
                 <div class="small font-italic text-muted mb-4">
                   Kecamatan = <?php echo $nama_kecamatan?><br>
                   Type Ruas = <?php echo $nama_ruas?><br>
-                  Jenis Permukaan = <?php echo $jenis?>
+                  Jenis Permukaan = <?php echo $jenis?><br />
+                  Kondisi Ruas = <?php echo $kondisi?>
                 </div>
               </div>
-            </div>
+            </div> -->
     <?php endif;?>
 
         <!-- <div class="card mb-2" style="margin-top:10px;">
@@ -283,6 +302,10 @@ p.remarks, a{
 
    function open_dialog(id){
     	window.location.href="<?php echo base_url()?>index.php/home/show_detail/"+id;
+    }
+
+    function open_dialog_kondisi(id){
+      window.location.href="<?php echo base_url()?>index.php/home/show_detail_kondisi/"+id;
     }
 
     function open_images(id) {
@@ -388,7 +411,7 @@ p.remarks, a{
              var extractedLTLNG2 = extractedLTLNG.map(parseFloat)
              let tempArray = [extractedLTLNG2[0], extractedLTLNG2[1]];
                outputArray<?php echo $key?>.push(tempArray);
-               let informasi = 'Nama Lokasi : <?php echo $value->nama_ruas_jalan?><br /> Kecamatan yang dilalui : <?php echo $value->nama_kecamatan?><br /> Type : <?php echo $value->nama_ruas?><br /><br /> Jenis Permukaan : <?php echo $value->jenis?><br /> Panjang Ruas : <?php echo $value->panjang_ruas?> km<br /> Lebar Ruas : <?php echo $value->lebar_ruas?> m<br /> <a href="#" class="btn btn-sm btn-danger" onclick="open_images(<?php echo $value->id_lokasi?>)">View Images</a> &nbsp;<a href="#" class="btn btn-sm btn-danger" onclick="open_video(<?php echo $value->id_lokasi?>)">View Video</a><br /><br /><a href="#" class="btn btn-success" onclick="open_dialog(<?php echo $value->id_lokasi?>)">Edit atau Tambah Ruas</a> &nbsp; <a href="#" class="btn btn-danger" onclick="open_dialog_hapus(<?php echo $value->id_lokasi?>)">Hapus</a>';
+               let informasi = '<b>Nama Lokasi :</b> <?php echo $value->nama_ruas_jalan?><br /> <b>Kecamatan yang dilalui : </b><?php echo $value->nama_kecamatan?><br /> <b>Type : </b><?php echo $value->nama_ruas?><br /><br /> <a href="#" class="btn btn-sm btn-danger" onclick="open_images(<?php echo $value->id_lokasi?>)">View Images</a> &nbsp;<a href="#" class="btn btn-sm btn-danger" onclick="open_video(<?php echo $value->id_lokasi?>)">View Video</a><br /><br /> Jenis Permukaan : <?php echo $value->jenis?><br />Panjang Ruas : <?php echo $value->panjang_ruas?> km<br /> Lebar Ruas : <?php echo $value->lebar_ruas?> m<br /> <a href="#" class="btn btn-success" onclick="open_dialog(<?php echo $value->id_lokasi?>)">Edit atau Tambah Ruas</a> &nbsp; <a href="#" class="btn btn-danger" onclick="open_dialog_hapus(<?php echo $value->id_lokasi?>)">Hapus</a><br /> <br /> <a href="#" class="btn btn-warning" onclick="open_dialog_kondisi(<?php echo $value->id_lokasi?>)">Add Kondisi Ruas</a>';
                 if(no==1){
 
                   <?php if($value->type_ruas_id==4){?>
@@ -411,9 +434,11 @@ p.remarks, a{
                   //awal array
                   var a<?php echo $key?> = new L.LatLng(extractedLTLNG2[0], extractedLTLNG2[1]);
                   //var marker_a<?php echo $key?> = new L.Marker(a<?php echo $key?>, {draggable: false}).bindPopup(informasi).addTo(map);
-				  var marker_a<?php echo $key?> = new L.Marker(a<?php echo $key?>, {draggable: false}).bindPopup(informasi).addTo(map).on('click', function(e) {
+                  <?php if($value->marker==""):?>
+				            var marker_a<?php echo $key?> = new L.Marker(a<?php echo $key?>, {draggable: false}).bindPopup(informasi).addTo(map).on('click', function(e) {
                             show_video('<?php echo $value->link_video?>');
                         });
+                  <?php endif;?>
                 <?php } ?>
 
                 }
@@ -422,9 +447,11 @@ p.remarks, a{
                   if((no + 1) == (splittedArray<?php echo $key?>.length)){
                       // console.log("Last iteration with item : " + extractedLTLNG2[0]);
                       var b<?php echo $key?> = new L.LatLng(extractedLTLNG2[0], extractedLTLNG2[1]);
-                      var marker_b<?php echo $key?> = new L.Marker(b<?php echo $key?>, {draggable: false}).bindPopup(informasi).addTo(map).on('click', function(e) {
+                      <?php if($value->marker==""):?>
+                        var marker_b<?php echo $key?> = new L.Marker(b<?php echo $key?>, {draggable: false}).bindPopup(informasi).addTo(map).on('click', function(e) {
                             show_video('<?php echo $value->link_video?>');
                         });
+                      <?php endif;?>
                   }
                 <?php } ?>
                 // console.log(no);
@@ -442,7 +469,7 @@ p.remarks, a{
           var polyline = L.polyline(data<?php echo $key?>, {
                     color: '<?php echo $value->kode_warna?>',
                     weight: 5,
-                    opacity: 0.5,
+                    opacity: 1,
                     smoothFactor: 10
              }).addTo(map);
 

@@ -7,6 +7,7 @@ class Home extends CI_Controller
         parent::__construct();
         
         $this->load->model('Map_model');
+        $this->load->helper('general');
     }
 
     public function index()
@@ -18,12 +19,14 @@ class Home extends CI_Controller
         $kecamatan_id="";
         $type_ruas="";
         $jenis="";
+        $kondisi="";
         $kirim=false;
         if($_POST){
             $kecamatan_id = $this->input->post('kecamatan');
             $type_ruas = $this->input->post('type_ruas');
             $jenis = $this->input->post('type');
-            $get_data = $this->map_model->get_data_type_search($kecamatan_id, $type_ruas, $jenis);
+            $kondisi = $this->input->post('kondisi');
+            $get_data = $this->map_model->get_data_type_search($kecamatan_id, $type_ruas, $jenis, $kondisi);
             $kirim=true;
         }
         $data=array(
@@ -34,8 +37,10 @@ class Home extends CI_Controller
             "kecamatan_id" => $kecamatan_id,
             "type_ruas_id" => $type_ruas,
             "jenis" => $jenis,
+            "kondisi" => $kondisi,
         	'row' => $get_data,
-            "posting" => $kirim
+            "posting" => $kirim,
+            "list_kondisi" => $this->map_model->get_data_kondisi()
         );
         $this->load->view('template',$data);
     }
@@ -106,6 +111,33 @@ class Home extends CI_Controller
             'master_type_jembatan' => $master_type_jembatan,
             'master_type_jembatan_detail' => $master_type_jembatan_detail,
             'master_type' => $master_type,
+        );
+        $this->load->view('template',$data);
+    }
+
+    public function show_detail_kondisi($id)
+    {
+        secure();
+        $get_data = $this->map_model->get_data_byId($id);
+        $master_kecamatan = $this->map_model->get_data_kecamatan();
+        $master_jenis = $this->map_model->get_data_jenis();
+        $master_kondisi = $this->map_model->get_data_kondisi_by_idloc($id);
+        $master_kondisi_jembatan = $this->map_model->get_data_kondisi();
+        $master_type_jembatan = $this->map_model->get_data_type_jembatan_by_idloc($id);
+        $master_type_jembatan_detail = $this->map_model->get_data_type_jembatan_detail();
+        $master_type = $this->map_model->get_data_type_ruas();
+        // echo $this->db->last_query();
+        $data=array(
+            'content'=>'show_detail_kondisi',
+            'row' => $get_data,
+            'master_kondisi' => $master_kondisi,
+            'master_kondisi_jembatan' => $master_kondisi_jembatan,
+            'master_kecamatan' => $master_kecamatan,
+            'master_jenis' => $master_jenis,
+            'master_type_jembatan' => $master_type_jembatan,
+            'master_type_jembatan_detail' => $master_type_jembatan_detail,
+            'list_kondisi' => $this->map_model->get_data_kondisi_bylokasi($id),
+            'all_lokasi' => $this->map_model->get_all_lokasi_byId($id)
         );
         $this->load->view('template',$data);
     }
@@ -604,5 +636,46 @@ class Home extends CI_Controller
         $data['id'] = $id;
         $data['list'] = $this->map_model->get_link($id);
         $this->load->view('images/video',$data);
+    }
+
+    function insert_data_kondisi(){
+        set_time_limit(0);
+          ini_set('max_execution_time', 0);
+          ini_set('memory_limit', '-1');
+          ini_set('upload_max_filesize', '1409600M');
+          ini_set('post_max_size', '1409600M');
+          ini_set('max_input_time', 1360000);
+
+        $id = $this->input->post('modal_id');
+        $waypoint2 = $this->input->post('waypoint3');
+        $kondisi = $this->input->post('kondisi');
+        $type_ruas = $this->input->post('type_ruas');
+        if(!empty($id)){
+
+            if($waypoint2==""){
+                echo json_encode(array("message" => 'Data Failed, Belum Menentukan Titik Map!'));
+                die;
+            }
+
+            if($type_ruas==3){
+                $cek = $this->db->query("SELECT * FROM lokasi_kondisi_waypoint where id_lokasi='$id' and id_kondisi='$kondisi'");
+                if($cek->num_rows()==0){
+
+                    //add jenis permukaan
+                    $data_per = array(
+                        "id_lokasi" => $id,
+                        "id_kondisi" => $kondisi,
+                        "waypoint" => $waypoint2
+                       );
+                    $this->db->insert("lokasi_kondisi_waypoint", $data_per);
+                    echo json_encode(array("message" => 'Data Update Successfully, Berhasil Input Kondisi Ruas'));
+                }else{
+                    $this->db->query("update lokasi_kondisi_waypoint set id_kondisi='$kondisi', waypoint='$waypoint2' where id_lokasi='$id' and id_kondisi='$kondisi'");    
+                    echo json_encode(array("message" => 'Data Update Successfully, berhasil update Kondisi Ruas'));
+                }
+            }else{
+                echo json_encode(array("message" => 'Data Update Successfully'));
+            }
+        }
     }
 }

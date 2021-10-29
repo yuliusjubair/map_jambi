@@ -29,7 +29,7 @@ class Map_model extends CI_Model {
     }
 
      function get_data_type(){
-        $this->db->select("a.*, b.nama as nama_kecamatan, c.jenis, c.kode_warna, d.nama as nama_ruas");
+        $this->db->select("a.nama_ruas_jalan,a.id_lokasi,a.panjang_ruas,a.lebar_ruas,a.type_ruas_id,a.link_video,a.waypoint2, b.nama as nama_kecamatan, c.jenis, c.kode_warna, d.nama as nama_ruas, '' as marker");
         $this->db->from("lokasi_waypoint as a");
         $this->db->join('master_kecamatan as b','a.kecamatan_id = b.id','left');
         $this->db->join('master_jenis_permukaan as c','a.type_id = c.id','left');
@@ -37,11 +37,19 @@ class Map_model extends CI_Model {
         $this->db->where("a.delete_by =''");
         // $this->db->group_by('a.nama_ruas_jalan');
         $query = $this->db->get();
-        return $query->result();
+        $query1 =  $query->result();
+
+        $this->db->select("'' as nama_ruas_jalan,'' as id_lokasi,'' as panjang_ruas,'' as lebar_ruas, '' as type_ruas_id,'' as link_video,waypoint as waypoint2, '' as nama_kecamatan, '' as jenis, b.kode_warna as kode_warna, '' as nama_ruas, '1' as marker");
+        $this->db->from("lokasi_kondisi_waypoint as a");
+        $this->db->join('master_kondisi as b','a.id_kondisi = b.id','left');
+        $query = $this->db->get();
+        $query2 = $query->result();
+
+       return array_merge($query1, $query2);
     }
 
-    function get_data_type_search($kecamatan_id, $type_ruas_id, $jenis){
-        $this->db->select("a.*, b.nama as nama_kecamatan, c.jenis, c.kode_warna, d.nama as nama_ruas");
+    function get_data_type_search($kecamatan_id, $type_ruas_id, $jenis, $kondisi){
+        $this->db->select("a.nama_ruas_jalan,a.id_lokasi,a.panjang_ruas,a.lebar_ruas,a.type_ruas_id,a.link_video,a.waypoint2, b.nama as nama_kecamatan, c.jenis, c.kode_warna, d.nama as nama_ruas, '' as marker, '' as  kondisi");
         $this->db->from("lokasi_waypoint as a");
         $this->db->join('master_kecamatan as b','a.kecamatan_id = b.id','left');
         $this->db->join('master_jenis_permukaan as c','a.type_id = c.id','left');
@@ -57,7 +65,18 @@ class Map_model extends CI_Model {
             $this->db->where('a.type_id', $jenis);
         }
         $query = $this->db->get();
-        return $query->result();
+        $query1 =  $query->result();
+
+        $this->db->select("'' as nama_ruas_jalan,'' as id_lokasi,'' as panjang_ruas,'' as lebar_ruas, '' as type_ruas_id,'' as link_video,waypoint as waypoint2, '' as nama_kecamatan, '' as jenis, b.kode_warna as kode_warna, '' as nama_ruas, '1' as marker, b.nama as kondisi");
+        $this->db->from("lokasi_kondisi_waypoint as a");
+        $this->db->join('master_kondisi as b','a.id_kondisi = b.id','left');
+        if(!empty($kondisi)){
+            $this->db->where('a.id_kondisi', $kondisi);
+        }
+        $query = $this->db->get();
+        $query2 = $query->result();
+
+        return array_merge($query1, $query2);
     }
 
     function get_data(){
@@ -260,6 +279,26 @@ class Map_model extends CI_Model {
 
     function deleteLink_byId($id){
         return $this->db->query("DELETE FROM tbl_linkvideo_lokasi WHERE id=?", $id);
+    }
+
+     function get_data_kondisi_bylokasi($id){
+        $this->db->select("a.*, b.nama");
+        $this->db->from("lokasi_kondisi_waypoint as a");
+        $this->db->join('master_kondisi as b','a.id_kondisi = b.id','left');
+        $this->db->where("id_lokasi", $id);
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+    function get_all_lokasi_byId($id_lokasi){
+        $sql = "SELECT waypoint2 as waypoint, waypoint1, type_ruas_id, 'black' as kode_warna from lokasi_waypoint where id_lokasi='$id_lokasi'
+        UNION 
+            SELECT waypoint, waypoint as waypoint1, '3' as type_ruas_id, kode_warna from lokasi_kondisi_waypoint 
+            LEFT JOIN master_kondisi ON master_kondisi.id = lokasi_kondisi_waypoint.id_kondisi
+            where id_lokasi='$id_lokasi'
+        ";
+
+        return $this->db->query($sql)->result();
     }
 
 }
