@@ -199,6 +199,7 @@ class Home extends CI_Controller
             $kondisi = $this->input->post('kondisi');
             $persen = $this->input->post('persen');
             $km = $this->input->post('km');
+            $this->db->query("delete from list_kondisi_map where id_lokasi='$id'");  
             if(isset($kondisi)):
                 for($a=0;$a<count($kondisi);$a++){
                     $data_kondisi = array(
@@ -658,8 +659,8 @@ class Home extends CI_Controller
             }
 
             if($type_ruas==3){
-                $cek = $this->db->query("SELECT * FROM lokasi_kondisi_waypoint where id_lokasi='$id' and id_kondisi='$kondisi'");
-                if($cek->num_rows()==0){
+                // $cek = $this->db->query("SELECT * FROM lokasi_kondisi_waypoint where id_lokasi='$id' and id_kondisi='$kondisi'");
+                // if($cek->num_rows()==0){
 
                     //add jenis permukaan
                     $data_per = array(
@@ -669,10 +670,10 @@ class Home extends CI_Controller
                        );
                     $this->db->insert("lokasi_kondisi_waypoint", $data_per);
                     echo json_encode(array("message" => 'Data Update Successfully, Berhasil Input Kondisi Ruas'));
-                }else{
-                    $this->db->query("update lokasi_kondisi_waypoint set id_kondisi='$kondisi', waypoint='$waypoint2' where id_lokasi='$id' and id_kondisi='$kondisi'");    
-                    echo json_encode(array("message" => 'Data Update Successfully, berhasil update Kondisi Ruas'));
-                }
+                // }else{
+                    // $this->db->query("update lokasi_kondisi_waypoint set id_kondisi='$kondisi', waypoint='$waypoint2' where id_lokasi='$id' and id_kondisi='$kondisi'");    
+                    // echo json_encode(array("message" => 'Data Update Successfully, berhasil update Kondisi Ruas'));
+                // }
             }else{
                 echo json_encode(array("message" => 'Data Update Successfully'));
             }

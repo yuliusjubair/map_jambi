@@ -495,7 +495,8 @@ var options = {
   },
   edit: {
     featureGroup: editableLayers, //REQUIRED!!
-    remove: true
+    remove: true,
+    edit: false
   }
 };
 

@@ -369,7 +369,7 @@ var options = {
     polyline: {
       shapeOptions: {
         color: '#f357a1',
-        weight: 10
+        weight: 15
           }
     },
     // disable toolbar item by setting it to false
@@ -381,7 +381,8 @@ var options = {
   },
   edit: {
     featureGroup: editableLayers, //REQUIRED!!
-    remove: true
+    remove: true,
+    edit: false
   }
 };
 
